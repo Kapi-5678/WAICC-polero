@@ -1,0 +1,10 @@
+gold,Explicit,Implicit,General,Partial/half-answer,Dodging,Deflection,Declining to answer,Claims ignorance,Clarification
+Explicit,1408,81,174,8,56,39,20,15,0
+Implicit,106,71,29,4,34,21,7,3,1
+General,173,41,141,1,40,23,16,3,0
+Partial/half-answer,26,5,10,0,3,6,4,2,0
+Dodging,69,36,22,1,114,10,22,6,6
+Deflection,61,23,44,2,20,21,7,1,0
+Declining to answer,11,4,3,1,24,8,95,2,0
+Claims ignorance,8,0,2,1,7,2,4,33,1
+Clarification,4,2,1,0,11,0,0,1,17
