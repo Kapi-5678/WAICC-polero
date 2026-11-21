@@ -117,7 +117,7 @@ full = 50 * macro(y_cl, PRED["v1"][0], 3) + 50 * macro(y_ev, PRED["v1"][1], 9)
 pct = lambda a, q: np.percentile(a, q)
 
 print(f"{args.draws} stratified bootstrap draws of {args.n} rows (per-class quota {dict(zip(EVASION_LABELS, quota.tolist()))})\n")
-print("## 1. v1's score on a 296-row sample")
+print(f"## 1. v1's score on a {args.n}-row sample")
 print(f"  full OOF score: {full:.2f}")
 print(f"  draws: mean {v1.mean():.2f}, sd {v1.std():.2f}, 5th-95th {pct(v1, 5):.2f} - {pct(v1, 95):.2f}, 1st {pct(v1, 1):.2f}, min {v1.min():.2f}")
 print(f"  clarity part: mean {50 * np.mean(cl_f1):.2f} sd {50 * np.std(cl_f1):.2f} | evasion part: mean {50 * np.mean(ev_f1):.2f} sd {50 * np.std(ev_f1):.2f}")

@@ -1,6 +1,8 @@
 # Task 8: how much can the leaderboard tell us?
 
-All numbers come from the run-1 OOF predictions only (`results/run1/`); test data isn't touched.
+All numbers come from the run-1 OOF predictions only (`results/run1/`); test data isn't touched. The only exception is section 5, which reads the test set's `president`, `date` and `context` metadata, never its text.
+
+> **Update (task 9):** the visible leaderboard is scored on a fixed **subset** of the 296 test rows. Full scores come only after the deadline, and only for the 2 finals. The subset size isn't published, so sections 4 and 5 redo the numbers for 148 rows (half) and 100 rows (pessimistic). **Use the decision table in section 4, not the 296-row one below.**
 
 ```
 .venv\Scripts\python leaderboard_noise.py
@@ -58,9 +60,11 @@ A leaderboard gap between v2 and v1 counts as real only if it's bigger than the 
 
 | v2 agrees with v1 on test evasion labels | 50/50 formula | evasion-only formula |
 |---|---|---|
-| ≥ 88% | **±4 points** | **±6 points** |
+| ≥ 88% | ±4 points | ±6 points |
 | ~80% | ±6 points | ±9 points |
 | < 75% | use the OOF difference; the leaderboard says little | same |
+
+*This table assumes all 296 rows are scored. For the real, partial leaderboard, see section 4.*
 
 - **A v2 that is more than the band *below* v1 on the leaderboard is a real drop.** Don't pick it, even if its OOF score is higher.
 - **Anything inside the band is noise.** Pick by nested OOF score (task 7's ≥ 0.02 rule), not by which leaderboard number is higher.
@@ -85,3 +89,92 @@ v1's evasion F1 per class across the draws. "sd in points" is the class's share 
 - **The three rarest classes dominate the noise.** With 3 rows per draw, a single Clarification hit or miss moves the score by about 1.5 points on its own, and Claims ignorance by about 1.
 - **Explicit**, with 163 rows, contributes almost nothing.
 - **Partial** has zero variance only because v1 never predicts it correctly. Its F1 is 0 in every draw, and it still counts as one of the nine classes. It has the most room to gain: a Partial F1 of 0.3 would add about 1.7 points (0.3 × 50 / 9). With only 5 rows per draw, that gain would itself be noisy.
+
+## 4. The visible leaderboard is a subset: wider bands
+```
+.venv\Scripts\python leaderboard_noise.py --n 148
+.venv\Scripts\python leaderboard_noise.py --n 100
+```
+
+### Is 41.93 bad luck on a subset?
+| rows scored | v1 50/50: mean ± sd | 5th – 95th | P(≤ 41.93), 50/50 | P(≤ 41.93), evasion only |
+|---|---|---|---|---|
+| 296 | 52.5 ± 3.5 | 46.5 – 58.2 | 0.0006 | 0.73 |
+| 148 | 52.6 ± 4.7 | 44.7 – 60.2 | **0.015** | 0.67 |
+| 100 | 52.2 ± 5.9 | 42.2 – 61.7 | **0.046** | 0.67 |
+
+The subset makes the 50/50 formula less implausible, but on a half-size subset it's still a 1-in-70 result, and 1-in-22 on 100 rows. Evasion-only stays an ordinary draw at every size. Combining the subset with the test set's actual mix (section 5) changes these figures by less than 0.01.
+
+### Decision rule for the partial leaderboard (use this one)
+The bands are about 2 sd of the paired v2 − v1 difference, rounded up, from the same draws.
+
+| v2 agrees with v1 on test evasion labels | 148 rows, 50/50 | 148 rows, evasion only | 100 rows, 50/50 | 100 rows, evasion only |
+|---|---|---|---|---|
+| ≥ 88% | **±5 points** | **±8 points** | ±7 points | ±11 points |
+| ~80% | ±8 points | ±11 points | ±10 points | ±14 points |
+
+Paired-difference sd behind the table:
+
+| other − v1 | agree | 148: 50/50 | 148: evasion | 100: 50/50 | 100: evasion |
+|---|---|---|---|---|---|
+| all 4 run-1 configs | 92.6% | 1.87 | 2.97 | 2.25 | 3.59 |
+| greedy (XLM-R ×3 + RoBERT + RO-BERT) | 89.4% | 2.50 | 4.00 | 3.12 | 5.23 |
+| XLM-R large alone | 79.3% | 3.81 | 5.37 | 4.68 | 6.90 |
+| RO-BERT base alone | 79.7% | 3.31 | 4.77 | 4.08 | 5.91 |
+
+**For picking the 2 finals tonight:**
+- **The visible leaderboard can't tell apart submissions that agree on ~90% of rows** unless they differ by 5–11 points, and real ensemble improvements are 1–3 points. So **choose by nested OOF score** (task 7). Use the leaderboard only to veto a v2 that falls further below v1 than the band.
+- **Hedge:** pick two finals that differ, about 80–90% agreement. Only the finals get full 296-row scores, and those are less noisy than what we see now.
+
+### Rare classes on a subset
+On 148 rows a draw has 2 Clarification, 3 Claims ignorance and 3 Partial rows:
+- **Clarification:** F1 = 0 in 27.5% of draws, and it moves the score by about 2 points on its own.
+- **Deflection:** F1 = 0 in 38.7% of draws.
+
+On 100 rows it's 1 Clarification row: F1 = 0 in 52.8% of draws, about 2.6 points either way.
+
+## 5. Test-set makeup (metadata only: `president`, `date`, `context`)
+Only these three columns of `test_data.csv` were read; no question or answer text.
+
+| president | train % | test % (n) | v1 OOF evasion accuracy |
+|---|---|---|---|
+| Traian Băsescu | 34.2 | 31.8 (94) | 0.638 |
+| Klaus Iohannis | 30.4 | **34.8** (103) | 0.522 |
+| Ion Iliescu | 23.1 | 20.6 (61) | 0.635 |
+| Nicușor Dan | 10.9 | 10.5 (31) | 0.478 |
+| Ilie Bolojan | 1.5 | 2.4 (7) | 0.327 |
+
+| context | train % | test % (n) | v1 OOF evasion accuracy |
+|---|---|---|---|
+| Interview | 53.7 | 48.6 (144) | 0.638 |
+| Declaration | 33.6 | **37.8** (112) | 0.524 |
+| Press Conference | 12.7 | 13.5 (40) | 0.480 |
+
+| years | train % | test % (n) |
+|---|---|---|
+| 2001–2004 | 23.1 | 20.6 (61) |
+| 2005–2009 | 33.4 | 31.1 (92) |
+| 2010–2014 | 0.8 | 0.7 (2) |
+| 2015–2019 | 17.9 | 16.6 (49) |
+| 2020–2024 | 12.5 | **17.9** (53) |
+| 2025–2026 | 12.4 | 13.2 (39) |
+
+Train dates come in two formats: `YYYY-MM-DD` up to Băsescu, `DD.MM.YYYY` from Iohannis on. Both parse.
+
+**Test leans slightly towards the harder slices:**
+- 47.7% of test rows are from 2015 or later, against 42.8% in train;
+- Iohannis's second term is over-represented;
+- Declarations make up 37.8% of test, against 33.6% in train.
+
+**How much of the gap the mix explains.** Expected v1 50/50 score on train rows drawn to match the test's **president × context** mix (12 cells), against the train mix, 3,000 draws each:
+
+| rows scored | train mix | test president × context mix | test year-range × context mix |
+|---|---|---|---|
+| 296 | 52.3 | 52.0 (−0.3) | 51.8 (−0.3) |
+| 148 | 51.7 | 51.4 (−0.3) | 51.0 (−0.6) |
+| 100 | 51.2 | 50.8 (−0.5) | 50.5 (−0.6) |
+
+The test mix costs about **0.3–0.6 points** of the 11-point gap between OOF (about 52.9) and the leaderboard (41.93), so about 3–5% of it. **The metadata doesn't explain the gap.** The likely explanations, in order:
+1. **The leaderboard shows evasion only** (fits at every subset size, section 4);
+2. **The test labels differ from train:** test was labelled by 3 annotators plus expert adjudication, while train rows had a single annotator;
+3. **a bad draw of a small subset:** 1.5–5% likely under 50/50.
