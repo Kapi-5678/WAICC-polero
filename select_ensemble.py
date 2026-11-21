@@ -17,6 +17,12 @@ Nested check: the selection is rerun on 4 folds' OOF rows (common.folds) and sco
 Fixed recipes (--recipe, default RECIPES below) average every config whose name matches a pattern,
 with equal weights and no selection, so their OOF score needs no nesting. They are defined before
 runs 3-6 land; matching configs from later runs join automatically.
+--combine (default plain): how member probabilities are averaged.
+  plain  arithmetic mean of probabilities (as evaluate.py)
+  geo    geometric mean: mean of log-probabilities, renormalised
+  temp   per-config temperature first, p ~ p_raw^(1/T), T fitted by OOF log-loss on a grid
+         (separately for the evasion and clarity heads), nested: each fold's OOF rows use the T
+         fitted on the other 4 folds; test uses the T fitted on all rows. Then the plain mean.
 """
 import argparse, fnmatch, glob, os, re
 from collections import Counter, defaultdict
@@ -33,6 +39,7 @@ ap.add_argument("--submission", help="write the selected ensemble's test predict
 ap.add_argument("--recipe", action="append", metavar="LABEL=PATTERN[,PATTERN]",
                 help="fixed equal-weight average of the configs matching the patterns (repeatable); "
                      "default: the RECIPES below")
+ap.add_argument("--combine", choices=["plain", "geo", "temp"], default="plain")
 ap.add_argument("--submit_recipe", metavar="LABEL", help="with --submission: write this recipe's predictions instead of the greedy bag")
 args = ap.parse_args()
 
@@ -91,9 +98,42 @@ for c in sorted(groups):
     print(f"{c}: best epoch {best[1]}")
 PE, PC, TPE, TPC = map(np.array, (PE, PC, TPE, TPC))
 K = len(names)
+TGRID = np.round(np.arange(0.5, 5.01, 0.1), 2)
+PE_RAW, PC_RAW = PE.copy(), PC.copy()  # the submitted v1 is a plain average of these
+
+
+def temper(P, T):
+    lp = np.log(np.clip(P, 1e-12, 1)) / T
+    lp -= lp.max(-1, keepdims=True)
+    q = np.exp(lp)
+    return q / q.sum(-1, keepdims=True)
+
+
+def fit_T(P, y):
+    return min(TGRID, key=lambda T: -np.log(np.clip(temper(P, T)[np.arange(len(y)), y], 1e-12, 1)).mean())
+
+
+if args.combine == "temp":  # nested temperature per config and head
+    fold_rows = folds(tr.evasion_label.values)
+    Ts = {}
+    for k in range(K):
+        for P, TP, y, head in ((PE, TPE, y_ev, "ev"), (PC, TPC, y_cl, "cl")):
+            Pk = P[k].copy()
+            for trn, val in fold_rows:
+                Pk[val] = temper(P[k][val], fit_T(P[k][trn], y[trn]))
+            T_all = fit_T(P[k], y)
+            P[k], TP[k] = Pk, temper(TP[k], T_all)
+            Ts[(names[k], head)] = T_all
+    print("temperatures fitted on all rows (evasion / clarity):")
+    for n in names:
+        print(f"  {n}: {Ts[(n, 'ev')]:.1f} / {Ts[(n, 'cl')]:.1f}")
 
 
 def blend(w, P):
+    if args.combine == "geo":
+        lp = np.tensordot(w / w.sum(), np.log(np.clip(P, 1e-12, 1)), axes=1)
+        q = np.exp(lp - lp.max(-1, keepdims=True))
+        return q / q.sum(-1, keepdims=True)
     return np.tensordot(w / w.sum(), P, axes=1)
 
 
@@ -144,6 +184,9 @@ RECIPES = {
     "R2 R1 + v1's RO-BERT base": LARGE + ["run1/bert-base-romanian-cased-v1_p0"],
     "R3 R1 + run-3 headtail variants": LARGE + ["*/r[0-9]-robert-large-headtail*"],
     "R4 all XLM-R large models": ["run1/xlm-roberta-large_p0", "*/r[0-9]-xlmr-large-lr1e-5*"],
+    "T2 run-2 trio": ["run2/r2-xlmr-large-lr1e-5_p0", "run2/r2-robert-large-lr1e-5_p0", "run2/r2-robert-base-lr2e-5_p0"],
+    "T12 v1 trio + run-2 trio": ["run1/xlm-roberta-large_p0", "run1/RoBERT-large_p0", "run1/bert-base-romanian-cased-v1_p0",
+                                 "run2/r2-xlmr-large-lr1e-5_p0", "run2/r2-robert-large-lr1e-5_p0", "run2/r2-robert-base-lr2e-5_p0"],
 }
 if args.recipe:
     RECIPES = {r.split("=", 1)[0]: r.split("=", 1)[1].split(",") for r in args.recipe}
@@ -177,7 +220,7 @@ for k, n in enumerate(names):
     table.append(row(n, np.eye(K)[k]))
 
 goal = ("evasion first, clarity within " + f"{args.max_clarity_drop:g} of " + ("v1" if W_V1 is not None else "the best single config")) if args.objective == "evasion" else "clarity + evasion"
-print(f"\n{K} configs from {', '.join(args.runs)}; selection objective: {goal}. OOF macro-F1 over {len(tr)} train rows:\n")
+print(f"\n{K} configs from {', '.join(args.runs)}; combine: {args.combine}; selection objective: {goal}. OOF macro-F1 over {len(tr)} train rows:\n")
 print(f"| {'ensemble':52s} | clarity | evasion | sum    | clarity method |")
 print(f"|{'-' * 54}|---------|---------|--------|----------------|")
 for label, cl, ev, s, m in table:
@@ -188,7 +231,10 @@ print("selected bag (in-sample):", {names[k]: int(c) for k, c in enumerate(w_sel
 for i, b in enumerate(bags):
     print(f"  nested fold {i} bag:", {names[k]: int(c) for k, c in enumerate(b) if c})
 if W_V1 is not None:
-    _, v1_cl, v1_ev, v1_sum, _ = table[0]
+    w1 = W_V1 / W_V1.sum()  # submitted v1: plain mean of the raw probabilities, whatever --combine is
+    v1_cl, v1_ev, _ = score(np.tensordot(w1, PE_RAW, axes=1), np.tensordot(w1, PC_RAW, axes=1))
+    v1_sum = v1_cl + v1_ev
+    print(f"reference = submitted v1 (plain average): clarity {v1_cl:.4f}, evasion {v1_ev:.4f}")
     print(f"nested greedy vs v1: evasion {n_ev - v1_ev:+.4f}, clarity {n_cl - v1_cl:+.4f}, sum {n_cl + n_ev - v1_sum:+.4f}")
     if args.objective == "evasion":
         ok = n_ev - v1_ev >= 0.02 and n_cl - v1_cl >= -args.max_clarity_drop
