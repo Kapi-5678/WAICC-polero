@@ -27,6 +27,7 @@ ap.add_argument("--q_mode", choices=["head", "tail", "headtail"], default="head"
 ap.add_argument("--president", action="store_true", help="prepend the president's name to the question")
 ap.add_argument("--prev_len", type=int, default=0, help="tokens of the previous question to prepend")
 ap.add_argument("--seed", type=int, default=42)
+ap.add_argument("--cl_weight", type=float, default=0.5, help="weight of the clarity loss next to the evasion loss")
 ap.add_argument("--out", default="runs")
 ap.add_argument("--name", default=None, help="config name used in output files (default: model name)")
 args = ap.parse_args()
@@ -150,7 +151,7 @@ for ep in range(args.epochs):
     for b, x, m in bl:
         with torch.autocast(dev, enabled=dev == "cuda"):
             le, lc = net(x, m)
-            loss = loss_ev(le.float(), torch.tensor(yev[b], device=dev)) + 0.5 * loss_cl(lc.float(), torch.tensor(ycl[b], device=dev))
+            loss = loss_ev(le.float(), torch.tensor(yev[b], device=dev)) + args.cl_weight * loss_cl(lc.float(), torch.tensor(ycl[b], device=dev))
         scaler.scale(loss).backward()
         scaler.unscale_(opt)
         nn.utils.clip_grad_norm_(net.parameters(), 1.0)
