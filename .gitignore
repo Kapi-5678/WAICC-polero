@@ -10,3 +10,4 @@ models/
 *.safetensors
 runs/
 kaggle_upload/
+kaggle_out/

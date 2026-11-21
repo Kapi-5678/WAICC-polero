@@ -1,0 +1,58 @@
+[{"stream_name":"stdout","time":9.928284633,"data":"20 jobs on 2 GPU(s)\n"}
+,{"stream_name":"stdout","time":609.937829283,"data":"[10 min] xlm-roberta-large_1e-5_5_0: ok in 10.0 min\n"}
+,{"stream_name":"stdout","time":629.939308423,"data":"[10 min] xlm-roberta-large_1e-5_5_1: ok in 10.3 min\n"}
+,{"stream_name":"stdout","time":1179.947807972,"data":"[20 min] xlm-roberta-large_1e-5_5_2: ok in 9.3 min\n"}
+,{"stream_name":"stdout","time":1229.949715816,"data":"[20 min] xlm-roberta-large_1e-5_5_3: ok in 9.8 min\n"}
+,{"stream_name":"stdout","time":1419.953573467,"data":"[24 min] bert-base-romanian-cased-v1_3e-5_4_0: ok in 3.0 min\n"}
+,{"stream_name":"stdout","time":1559.957371202,"data":"[26 min] bert-base-romanian-cased-v1_3e-5_4_1: ok in 2.2 min\n"}
+,{"stream_name":"stdout","time":1699.960605069,"data":"[28 min] bert-base-romanian-cased-v1_3e-5_4_2: ok in 2.2 min\n"}
+,{"stream_name":"stdout","time":1759.962624333,"data":"[29 min] xlm-roberta-large_1e-5_5_4: ok in 9.5 min\n"}
+,{"stream_name":"stdout","time":1849.964848372,"data":"[31 min] bert-base-romanian-cased-v1_3e-5_4_3: ok in 2.3 min\n"}
+,{"stream_name":"stdout","time":1899.966630735,"data":"[32 min] bert-base-romanian-cased-v1_3e-5_4_4: ok in 2.2 min\n"}
+,{"stream_name":"stdout","time":2009.969638206,"data":"[33 min] bert-base-romanian-cased-v1_3e-5_4_32_0: ok in 2.5 min\n"}
+,{"stream_name":"stdout","time":2049.971152811,"data":"[34 min] bert-base-romanian-cased-v1_3e-5_4_32_1: ok in 2.3 min\n"}
+,{"stream_name":"stdout","time":2169.973777124,"data":"[36 min] bert-base-romanian-cased-v1_3e-5_4_32_2: ok in 2.5 min\n"}
+,{"stream_name":"stdout","time":2199.975340694,"data":"[37 min] bert-base-romanian-cased-v1_3e-5_4_32_3: ok in 2.3 min\n"}
+,{"stream_name":"stdout","time":2329.978281287,"data":"[39 min] bert-base-romanian-cased-v1_3e-5_4_32_4: ok in 2.5 min\n"}
+,{"stream_name":"stdout","time":2709.984744345,"data":"[45 min] RoBERT-large_1e-5_5_0: ok in 8.3 min\n"}
+,{"stream_name":"stdout","time":2839.987703148,"data":"[47 min] RoBERT-large_1e-5_5_1: ok in 8.3 min\n"}
+,{"stream_name":"stdout","time":3209.994077728,"data":"[53 min] RoBERT-large_1e-5_5_2: ok in 8.2 min\n"}
+,{"stream_name":"stdout","time":3359.997366278,"data":"[56 min] RoBERT-large_1e-5_5_3: ok in 8.5 min\n"}
+,{"stream_name":"stdout","time":3710.003113301,"data":"[62 min] RoBERT-large_1e-5_5_4: ok in 8.2 min\n"}
+,{"stream_name":"stdout","time":3721.62829965,"data":"RoBERT-large_p0 epoch 0: clar_combined=0.3722 clar_mapped=0.3060 clar_head=0.3643 evasion=0.1138\n"}
+,{"stream_name":"stdout","time":3721.628361458,"data":"RoBERT-large_p0 epoch 1: clar_combined=0.5777 clar_mapped=0.5446 clar_head=0.5590 evasion=0.2663\n"}
+,{"stream_name":"stdout","time":3721.628366239,"data":"RoBERT-large_p0 epoch 2: clar_combined=0.6107 clar_mapped=0.6094 clar_head=0.6146 evasion=0.3341\n"}
+,{"stream_name":"stdout","time":3721.628369654,"data":"RoBERT-large_p0 epoch 3: clar_combined=0.6257 clar_mapped=0.6221 clar_head=0.6259 evasion=0.3624\n"}
+,{"stream_name":"stdout","time":3721.628372834,"data":"RoBERT-large_p0 epoch 4: clar_combined=0.6308 clar_mapped=0.6303 clar_head=0.6282 evasion=0.3607\n"}
+,{"stream_name":"stdout","time":3721.628376003,"data":"RoBERT-large_p0: best epoch 4\n"}
+,{"stream_name":"stdout","time":3721.628379091,"data":"\n"}
+,{"stream_name":"stdout","time":3721.628382019,"data":"bert-base-romanian-cased-v1_p0 epoch 0: clar_combined=0.5167 clar_mapped=0.4682 clar_head=0.5281 evasion=0.1746\n"}
+,{"stream_name":"stdout","time":3721.628385211,"data":"bert-base-romanian-cased-v1_p0 epoch 1: clar_combined=0.6064 clar_mapped=0.5805 clar_head=0.5992 evasion=0.3248\n"}
+,{"stream_name":"stdout","time":3721.628388433,"data":"bert-base-romanian-cased-v1_p0 epoch 2: clar_combined=0.6170 clar_mapped=0.6144 clar_head=0.6201 evasion=0.3467\n"}
+,{"stream_name":"stdout","time":3721.628402726,"data":"bert-base-romanian-cased-v1_p0 epoch 3: clar_combined=0.6346 clar_mapped=0.6327 clar_head=0.6320 evasion=0.3666\n"}
+,{"stream_name":"stdout","time":3721.628405421,"data":"bert-base-romanian-cased-v1_p0: best epoch 3\n"}
+,{"stream_name":"stdout","time":3721.628407881,"data":"\n"}
+,{"stream_name":"stdout","time":3721.628410156,"data":"bert-base-romanian-cased-v1_p32 epoch 0: clar_combined=0.5224 clar_mapped=0.4398 clar_head=0.4808 evasion=0.1843\n"}
+,{"stream_name":"stdout","time":3721.628413011,"data":"bert-base-romanian-cased-v1_p32 epoch 1: clar_combined=0.5892 clar_mapped=0.5749 clar_head=0.5892 evasion=0.2885\n"}
+,{"stream_name":"stdout","time":3721.628415492,"data":"bert-base-romanian-cased-v1_p32 epoch 2: clar_combined=0.5862 clar_mapped=0.5923 clar_head=0.5997 evasion=0.3328\n"}
+,{"stream_name":"stdout","time":3721.62841801,"data":"bert-base-romanian-cased-v1_p32 epoch 3: clar_combined=0.6146 clar_mapped=0.6110 clar_head=0.6089 evasion=0.3377\n"}
+,{"stream_name":"stdout","time":3721.628420478,"data":"bert-base-romanian-cased-v1_p32: best epoch 3\n"}
+,{"stream_name":"stdout","time":3721.62842294,"data":"\n"}
+,{"stream_name":"stdout","time":3721.628425192,"data":"xlm-roberta-large_p0 epoch 0: clar_combined=0.3269 clar_mapped=0.2815 clar_head=0.3314 evasion=0.0989\n"}
+,{"stream_name":"stdout","time":3721.628427658,"data":"xlm-roberta-large_p0 epoch 1: clar_combined=0.5979 clar_mapped=0.5313 clar_head=0.5840 evasion=0.2052\n"}
+,{"stream_name":"stdout","time":3721.628430092,"data":"xlm-roberta-large_p0 epoch 2: clar_combined=0.6277 clar_mapped=0.6193 clar_head=0.6279 evasion=0.3149\n"}
+,{"stream_name":"stdout","time":3721.628432636,"data":"xlm-roberta-large_p0 epoch 3: clar_combined=0.6576 clar_mapped=0.6571 clar_head=0.6487 evasion=0.3737\n"}
+,{"stream_name":"stdout","time":3721.628435088,"data":"xlm-roberta-large_p0 epoch 4: clar_combined=0.6717 clar_mapped=0.6618 clar_head=0.6576 evasion=0.3764\n"}
+,{"stream_name":"stdout","time":3721.628438685,"data":"xlm-roberta-large_p0: best epoch 4\n"}
+,{"stream_name":"stdout","time":3721.62844111,"data":"\n"}
+,{"stream_name":"stdout","time":3721.628443472,"data":"ensemble of ['RoBERT-large_p0', 'bert-base-romanian-cased-v1_p0', 'bert-base-romanian-cased-v1_p32', 'xlm-roberta-large_p0']: clar_combined=0.6553 clar_mapped=0.6522 clar_head=0.6539 evasion=0.3958\n"}
+,{"stream_name":"stdout","time":3721.628447348,"data":"wrote submission.csv\n"}
+,{"stream_name":"stdout","time":3721.628449687,"data":"{'Clear Reply': 143, 'Ambivalent': 136, 'Clear Non-Reply': 17}\n"}
+,{"stream_name":"stdout","time":3721.628452176,"data":"{'Explicit': 178, 'General': 40, 'Implicit': 28, 'Dodging': 19, 'Declining to answer': 12, 'Deflection': 11, 'Claims ignorance': 5, 'Clarification': 3}\n"}
+,{"stream_name":"stderr","time":3724.437958738,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":3724.438028697,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":3724.7042049,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":3724.704238493,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":3725.545145181,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":3726.571599651,"data":"[NbConvertApp] Writing 285941 bytes to __results__.html\n"}
+]

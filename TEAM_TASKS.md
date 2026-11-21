@@ -31,7 +31,7 @@ Tasks 2 and 3 depend on these answers.
 - Output: `runs_llm/<name>.csv` with `datapointID, evasion_label`.
 
 ## 4. Error analysis (native speaker, after Kaggle run 1)
-- Write `analysis/export_errors.py`. It loads the OOF probabilities from the run-1 `.npz` files in `runs/` (see `evaluate.py` for how they're assembled) and writes `analysis/errors.csv` with the question, answer, gold label and predicted label for the OOF errors, plus a 9x9 confusion matrix.
+- Write `analysis/export_errors.py`. It loads the OOF probabilities from the run-1 `.npz` files in `results/run1/` (see `evaluate.py` for how they're assembled) and writes `analysis/errors.csv` with the question, answer, gold label and predicted label for the OOF errors, plus a 9x9 confusion matrix.
 - Read about 100 errors, focusing on the biggest confusions (Explicit vs Implicit, General vs Partial, Dodging vs Deflection). Tag each one as: gold label looks wrong / genuinely ambiguous / model clearly wrong (and why).
 - Deliverable: `analysis/notes.md` with the 3 to 5 patterns a feature, a rule or more context could fix (for example, answers opening with "Nu știu..." that should be Claims ignorance).
 
@@ -44,7 +44,7 @@ Tasks 2 and 3 depend on these answers.
 | By | What |
 |---|---|
 | Sat 13:00 | Task 1 done: rules and reference scores in `notes/` |
-| Sat ~15:00 | Kaggle run 1 finishes. Pick the best config or ensemble on OOF and write `submission_v1.csv` (milestone 1, a safe fallback). Upload the run-1 `runs/` folder for tasks 4 and 5 |
+| Sat 13:20 (done) | Kaggle run 1 finished. `submissions/submission_v1.csv` written (milestone 1, safe fallback). Predictions and scores in `results/run1/` for tasks 4 and 5 |
 | Sat 17:00 | Tasks 2 and 3 done: English data converted, LLM scored on the fold-0 sample. PRs open |
 | Sat 18:00 | Tasks 4 and 5 done: error-analysis notes, bias-tuning result |
 | Sat 18:30 | Kaggle run 2 starts with the add-ons that look promising (English data, previous-turn context, extra seeds of the best config) |
