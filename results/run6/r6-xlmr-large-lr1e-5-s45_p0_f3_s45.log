@@ -1,0 +1,27 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] Token indices sequence length is longer than the specified maximum sequence length for this model (786 > 512). Running this sequence through the model will result in indexing errors
+Loading weights:   0%|          | 0/391 [00:00<?, ?it/s]Loading weights: 100%|██████████| 391/391 [00:00<00:00, 17547.14it/s]
+[transformers] [1mXLMRobertaModel LOAD REPORT[0m from: FacebookAI/xlm-roberta-large
+Key                       | Status     |  | 
+--------------------------+------------+--+-
+lm_head.layer_norm.bias   | UNEXPECTED |  | 
+lm_head.dense.weight      | UNEXPECTED |  | 
+lm_head.bias              | UNEXPECTED |  | 
+lm_head.layer_norm.weight | UNEXPECTED |  | 
+lm_head.dense.bias        | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+/content/polero/finetune.py:157: UserWarning: Detected call of `lr_scheduler.step()` before `optimizer.step()`. In PyTorch 1.1.0 and later, you should call them in the opposite order: `optimizer.step()` before `lr_scheduler.step()`.  Failure to do this will result in PyTorch skipping the first value of the learning rate schedule. See more details at https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate
+  scaler.step(opt); scaler.update(); sched.step(); opt.zero_grad()
+r6-xlmr-large-lr1e-5-s45_p0_f3_s45 epoch 0 loss 2.527 146s val evasion macroF1 0.0990
+r6-xlmr-large-lr1e-5-s45_p0_f3_s45 epoch 1 loss 2.198 153s val evasion macroF1 0.1518
+r6-xlmr-large-lr1e-5-s45_p0_f3_s45 epoch 2 loss 1.821 153s val evasion macroF1 0.2767
+r6-xlmr-large-lr1e-5-s45_p0_f3_s45 epoch 3 loss 1.447 153s val evasion macroF1 0.3954
+r6-xlmr-large-lr1e-5-s45_p0_f3_s45 epoch 4 loss 1.072 153s val evasion macroF1 0.3438
+r6-xlmr-large-lr1e-5-s45_p0_f3_s45 epoch 5 loss 0.780 153s val evasion macroF1 0.3814
+r6-xlmr-large-lr1e-5-s45_p0_f3_s45 epoch 6 loss 0.514 152s val evasion macroF1 0.4386
+r6-xlmr-large-lr1e-5-s45_p0_f3_s45 epoch 7 loss 0.356 152s val evasion macroF1 0.4170
+r6-xlmr-large-lr1e-5-s45_p0_f3_s45 epoch 8 loss 0.216 151s val evasion macroF1 0.3951
+r6-xlmr-large-lr1e-5-s45_p0_f3_s45 epoch 9 loss 0.142 151s val evasion macroF1 0.3927
+wrote /content/drive/MyDrive/polero/run6/r6-xlmr-large-lr1e-5-s45_p0_f3_s45.npz
