@@ -111,6 +111,12 @@ Rares' Kaggle account runs one GPU session at a time (run 2, then run 3), so run
 6. On branch `notneagu/run4`, put the `.npz` files in `results/run4/` and the notebook log as `results/run4/kaggle.log`. Open a PR. Don't commit anything from `/kaggle/input` or any CSV.
 - If anything fails (a job says FAILED, out of memory, no GPU), post the log line in issue #2 instead of retrying blindly.
 
+## 11. Run 5 on a third Kaggle GPU (Colleague 1, now, ~5 min to launch, then ~2.5 h unattended)
+Same steps as task 10, on your own Kaggle account (`polero-data` is already shared with you), with two differences:
+- After pasting `kaggle/run.py`, change the line `RUN = "run4"` to `RUN = "run5"`. Check that the log says "10 jobs on 2 GPU(s)".
+- The results go in `results/run5/`, on branch `treipadus/run5`.
+Then go back to task 9 / task 7. Run 5 needs no attention until it's done.
+
 ## Schedule (deadline: Sun 22 Nov, 09:00)
 | By | What |
 |---|---|

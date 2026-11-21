@@ -36,8 +36,13 @@ RUNS = {
         ["--name", "r4-xlmr-large-lr1e-5-s43", "--model", "FacebookAI/xlm-roberta-large", "--lr", "1e-5", *LONG, "--seed", "43"],
         ["--name", "r4-robert-large-lr1e-5-s43", *ROBERT, "--seed", "43"],
     ],
+    # Run 5 (Colleague 1's Kaggle account): the same two configs with a third seed
+    "run5": [
+        ["--name", "r5-xlmr-large-lr1e-5-s44", "--model", "FacebookAI/xlm-roberta-large", "--lr", "1e-5", *LONG, "--seed", "44"],
+        ["--name", "r5-robert-large-lr1e-5-s44", *ROBERT, "--seed", "44"],
+    ],
 }
-RUN = "run4"
+RUN = "run4"  # Colleague 1 (TreiPaDus) changes this to "run5"
 CONFIGS = RUNS[RUN]
 jobs = [cfg + ["--fold", str(f)] for cfg in CONFIGS for f in range(5)]
 n_gpu = max(torch.cuda.device_count(), 1)
