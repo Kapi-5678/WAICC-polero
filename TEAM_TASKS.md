@@ -88,6 +88,13 @@ This is the final model choice, and it's Colleague 1's to own. Claude handles th
 
 **When run 3 lands in `results/run3/` (~19:30):** repeat with all three runs, which produces `submissions/v3/` if it wins.
 
+## 8. How much can the leaderboard tell us? (Colleague 1, now until run 2 lands)
+v1 scored **41.93 / 100** on the leaderboard (296 test rows), against about 53 expected from OOF if the score is 50 × clarity macro-F1 + 50 × evasion macro-F1. Two questions, both answered from the v1 OOF predictions in `results/run1/` alone (never look at test):
+1. **Is 41.9 just bad luck?** Draw many random 296-row samples from the OOF predictions with the train class mix (bootstrap, at least 2,000 draws) and compute 50 × clarity F1 + 50 × evasion F1 for each. Report the mean and the 5th–95th percentile. If 41.9 is far below the 5th percentile, the test set really differs from train (for example, its 3-annotator labels), and that's not just rare-class noise.
+2. **What leaderboard difference is real?** Using the same draws, score v1 and the run-1 greedy ensemble (or any second ensemble) on the *same* 296 rows, and report the spread of their score *difference*. That gives a rule like "a v2 that is more than X points below v1 on the leaderboard is a real drop, otherwise it's noise". Rares uses that rule to pick the 2 finals tonight.
+- Also report which classes drive the variance: with only a handful of Partial or Clarification rows in a 296-row draw, how often is a class's F1 exactly 0?
+- Deliverable: `ensemble/leaderboard_noise.md` with the two numbers, the decision rule, and the script (`leaderboard_noise.py`). PR before run 2 lands, ~17:00.
+
 ## Schedule (deadline: Sun 22 Nov, 09:00)
 | By | What |
 |---|---|
