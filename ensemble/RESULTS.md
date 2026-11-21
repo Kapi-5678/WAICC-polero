@@ -70,3 +70,36 @@ To write it:
 .venv\Scripts\python select_ensemble.py --runs results/run1 results/run2 results/run4 results/run5 results/run6 --submission submissions/v2/submission_v2.csv --submit_recipe "R1 all large lr1e-5 models"
 .venv\Scripts\python make_submission_py.py submissions/v2/submission_v2.csv
 ```
+
+## Softening the probabilities before averaging (Rares, issue #2)
+```
+.venv\Scripts\python select_ensemble.py --runs results/run1 results/run2 --combine plain|geo|temp
+```
+- `geo`: mean of log-probabilities, renormalised (a geometric mean). No fitting.
+- `temp`: one temperature per config and head, `p ∝ p^(1/T)`, T on a 0.5–5 grid by out-of-fold (OOF) log-loss. It's **nested**: each fold's OOF rows use the T fitted on the other 4 folds, and test uses the T fitted on all rows. The plain mean is applied after that.
+
+**The temperatures confirm the diagnosis.** Run-1 models need T = 1.2–1.8; run-2 models need **T = 2.5–4.9** (evasion / clarity):
+
+| model | run 1 T | | model | run 2 T |
+|---|---|---|---|---|
+| XLM-R large | 1.4 / 1.7 | | XLM-R large lr 1e-5 | 2.5 / 3.1 |
+| RoBERT-large | 1.2 / 1.5 | | RoBERT-large lr 1e-5 | 3.0 / 3.7 |
+| RO-BERT base | 1.4 / 1.8 | | RO-BERT base | 3.5 / 4.8 |
+
+Each cell is clarity / evasion, OOF over 3,278 rows. Fixed sets need no nesting; greedy is nested. **Δ is against the submitted v1** (plain average): 0.6626 / 0.3950.
+
+| set | plain | geo | temp |
+|---|---|---|---|
+| v1 trio | 0.6626 / 0.3950 | 0.6667 / 0.3968 | 0.6595 / 0.3968 |
+| run-2 trio (T2) | 0.6689 / **0.4019** (Δev +0.007) | 0.6697 / 0.4000 (+0.005) | 0.6701 / 0.3975 (+0.003) |
+| both trios, 6 (T12) | 0.6709 / 0.3938 (−0.001) | **0.6755 / 0.4033** (**+0.008**, clarity +0.013) | 0.6716 / 0.3953 (+0.000) |
+| R1: large lr 1e-5, 4 | 0.6742 / 0.3954 (+0.000) | 0.6731 / 0.3921 (−0.003) | **0.6773 / 0.3991** (+0.004, clarity +0.015) |
+| greedy, in-sample | 0.6743 / 0.4045 | 0.6812 / 0.4064 | 0.6837 / 0.4050 |
+| **greedy, nested** | 0.6448 / 0.3744 (**−0.021**) | 0.6689 / 0.3928 (−0.002) | 0.6747 / 0.3922 (−0.003) |
+
+**Findings:**
+- **Softening fixes the problem Rares spotted.** Plain-averaging both trios is *worse* than run 2's trio alone (0.394 vs 0.402 evasion), because the over-confident run-2 members dominate. With the geometric mean, the 6-model average becomes the best fixed set: 0.6755 / 0.4033.
+- **It also makes greedy selection much more stable.** Nested evasion goes from −0.021 to about −0.002 against v1. The in-sample overstatement shrinks from +0.060 (plain) to +0.026 (geo) and +0.022 (temp).
+- **Nothing clears the bar.** The best evasion gain over v1 is **+0.008** (geo, both trios), far from +0.02, though clarity gains are consistent at +0.01 to +0.015. **v1 stays.**
+- **For runs 4–6:** use `--combine geo` or `temp` for seed ensembles. Run 4/5/6 models come from run 2's settings, so they'll be just as over-confident, and a plain average would let them dominate the run-1 models.
+- **Caveat:** the clarity method (combined / mapped / head) is still picked per set on OOF, a small in-sample choice.
