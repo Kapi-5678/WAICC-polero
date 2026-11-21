@@ -22,6 +22,9 @@ ap.add_argument("--lr", type=float, default=3e-5)
 ap.add_argument("--bs", type=int, default=16)
 ap.add_argument("--max_len", type=int, default=320)
 ap.add_argument("--q_len", type=int, default=80)
+ap.add_argument("--q_mode", choices=["head", "tail", "headtail"], default="head",
+                help="which part of a long question to keep: head, tail, or the first 32 + last q_len-32 tokens")
+ap.add_argument("--president", action="store_true", help="prepend the president's name to the question")
 ap.add_argument("--prev_len", type=int, default=0, help="tokens of the previous question to prepend")
 ap.add_argument("--seed", type=int, default=42)
 ap.add_argument("--out", default="runs")
@@ -41,12 +44,25 @@ tok = AutoTokenizer.from_pretrained(args.model)
 CLS, SEP = tok.cls_token_id, tok.sep_token_id
 
 
+def cut_question(q):
+    """Journalists often ask at the end of a long preamble, so 'tail' and 'headtail' keep the end."""
+    if len(q) <= args.q_len:
+        return q
+    if args.q_mode == "tail":
+        return q[-args.q_len :]
+    if args.q_mode == "headtail":
+        return q[:32] + q[-(args.q_len - 32) :]
+    return q[: args.q_len]
+
+
 def encode(df):
     ids = []
-    for p, q, a in zip(df.prev_question, df.interview_question, df.interview_answer):
-        q = tok.encode(str(q), add_special_tokens=False)[: args.q_len]
+    for pres, p, q, a in zip(df.president, df.prev_question, df.interview_question, df.interview_answer):
+        q = cut_question(tok.encode(str(q), add_special_tokens=False))
         if args.prev_len:
             q = tok.encode(str(p), add_special_tokens=False)[-args.prev_len :] + [SEP] + q
+        if args.president:
+            q = tok.encode(str(pres), add_special_tokens=False) + [SEP] + q
         a = tok.encode(str(a), add_special_tokens=False)
         room = args.max_len - 3 - len(q)
         if len(a) > room:  # keep the start and the end of the answer
