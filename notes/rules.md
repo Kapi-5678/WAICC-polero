@@ -26,7 +26,7 @@
 ## LLM APIs vs. open models
 - **External LLM APIs are not allowed** (confirmed by the team, 21 Nov).
 - So **task 3 as written (an API classifier) is dropped.**
-- **Open-weight LLMs run by us are also off** (Rares, 21 Nov), so task 3b is off. For the record: in the paper, few-shot Qwen3.6-35B-A3B got the best Romanian evasion score (.682 vs .545 for the best encoder).
+- **Open-weight LLMs run by us:** first off (Rares, 21 Nov). **Reopened at ~17:55 the same day** for a train-only test (task 12). The model runs inside our own free Colab/Kaggle notebook, so it's neither an external API nor external data. For the record: in the paper, few-shot Qwen3.6-35B-A3B got the best Romanian evasion score (.682 vs .545 for the best encoder).
 
 ## Other rules
 - **Team size is 3:** Rares (leader), TreiPaDus, and a third colleague who joins later.

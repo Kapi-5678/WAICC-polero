@@ -117,6 +117,12 @@ Same steps as task 10, on your own Kaggle account (`polero-data` is already shar
 - The results go in `results/run5/`, on branch `treipadus/run5`.
 Then go back to task 9 / task 7. Run 5 needs no attention until it's done.
 
+## 12. Open-weight LLM test (Colleague 2's notebook, run on Colleague 1's Colab, now, ~1 h)
+Approved by Rares (21 Nov, ~17:55) as a **train-only** test. Few-shot Qwen3-14B (AWQ 4-bit) with vLLM on a free Colab T4: `colab/polero_llm_test.ipynb`. It labels the 656 fold-0 train rows, with few-shot examples from folds 1-4 only. Test is never touched at this stage.
+- Score it with `python llm/compare_llm.py <llm_fold0_*.csv>` against v1's out-of-fold predictions on the same rows. Post the table in issue #2.
+- **Cut-off:** keep going only if evasion F1 improves by at least +0.02 over the v1 ensemble on those rows, or Partial/Deflection clearly improve. Otherwise it's dropped.
+- If it passes: Rares decides on the next step (all of train with leave-fold-out shots, plus test, so it can join the ensemble).
+
 ## Schedule (deadline: Sun 22 Nov, 09:00)
 | By | What |
 |---|---|
@@ -125,8 +131,11 @@ Then go back to task 9 / task 7. Run 5 needs no attention until it's done.
 | Sat ~14:00 | Kaggle run 2 starts with the paper's training settings (10+ epochs, 512 tokens, lr 2e-5 for RoBERT-large). Takes about 4 to 5 h |
 | Sat 18:00 | Tasks 4 and 5 done: error-analysis notes, bias-tuning result |
 | Sat ~18:30 | Run 2 finishes. Keep only changes that beat run 1's OOF score by at least 0.02. Write `submissions/v2/` (milestone 2) |
-| Sat 23:30 | **Hard stop on experiments.** Rares uploads the final files and picks the **2 final submissions** (budget: 30 submissions in total) |
-| Sun 09:00 | Deadline, Romania time (EET). The night is buffer for a rerun if something breaks |
+| Sat ~19:00–20:00 | Runs 4, 5, 6 land (seeds 43–45). Task 7 rebuilds the seed ensembles (`--combine geo`, objective clarity + evasion) |
+| Sat evening | LLM test (task 12) on train fold 0. If it passes its cut-off, the LLM runs over all of train and test overnight |
+| Sun 06:00 | **Hard stop on experiments** (moved from Sat 23:30: we work through the night) |
+| Sun 06:00–08:00 | Rares builds and uploads the final files and picks the **2 final submissions** (budget: 30 submissions in total) |
+| Sun 09:00 | Deadline, Romania time (EET). 08:00–09:00 is buffer |
 
 Rules for stopping:
 - An add-on is kept only if it improves the ensemble's OOF macro-F1 (clarity + evasion) by at least 0.02. Smaller gains are within noise: there are only 36 Clarification and 56 Partial examples.
