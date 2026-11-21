@@ -4,15 +4,19 @@
 
 ## Evaluation metric
 - **Each subtask is worth 50 points.** The task text doesn't name the metric. We optimise **macro-F1 per subtask**, as in the PolERo paper (Section 3.1) and SemEval-2026 Task 6, and assume score = 50 × clarity macro-F1 + 50 × evasion macro-F1.
-- **The leaderboard doesn't settle the formula.** It shows two identical score columns. v1 scored **41.93** (rank 20 of 35). The real top is about 54.2, because #1's exact 100 is almost certainly the leaked public labels.
-- **41.93 looks like evasion only.** Under the 50/50 formula, OOF predicts v1 at 52.5 ± 3.5, and 41.93 would be a 1-in-1,700 result (`ensemble/leaderboard_noise.md`). It fits evasion only: 100 × evasion macro-F1 is expected at 38.9 (31.1–46.2).
-- **Working rule (Rares):** evasion is at least half the score under either formula and has the most room to gain. So **rank models by evasion OOF macro-F1 first**, and accept a clarity drop of at most 0.01.
+- **The 50/50 formula is confirmed by a probe** (`submissions/LEADERBOARD.md`, 21 Nov ~17:35).
+  - v3 kept v1's evasion answers exactly and changed only 41 clarity answers. Its partial score rose from 56.33 to 59.63, so **clarity counts**.
+  - v1's partial score of 56.33 fits 50 × clarity F1 + 50 × evasion F1: OOF predicts about 52.9, and the band for a partial board is about 46–59.
+- **The earlier "41.93" was the platform's rescaled grade, not the score.** It's a linear rescale, about 1.98 grade points per score point. The "evasion only" reading in the first version of `ensemble/leaderboard_noise.md` is therefore wrong.
+- **Selection rule (Rares, after the probe):**
+  - choose on **clarity + evasion** (`select_ensemble.py --objective sum`), with the bar at a nested **sum** gain of +0.02 over v1;
+  - clarity and evasion answers may come from **different ensembles** (`split_submission.py`), each chosen on its own OOF score.
 - **Submission format:** as `common.write_submission` / `evaluate.py` write it. One CSV with columns `subtaskID, datapointID, answer`, in `data/sample_output.csv` row order. Rows with `subtaskID=1` hold the clarity label and rows with `subtaskID=2` the evasion label, for each of the 296 test rows (592 rows). The uploaded file is `submissions/vN/polero_vN.py`, built by `make_submission_py.py`.
-- **Public / private split:** not stated. Treat the leaderboard as noisy either way and don't tune against it. With 296 rows, a gap under about ±4–6 points is noise for two similar submissions (`ensemble/leaderboard_noise.md`).
+- **Public / private split:** the visible leaderboard is a *partial* one, scored on a fixed subset of the 296 test rows. Full scores come only after the deadline, and only for the 2 finals. Treat it as noisy and don't tune against it. For two similar submissions, a gap under about ±5–7 points is noise (`ensemble/leaderboard_noise.md`, section 4, 50/50 columns).
 
 ## Deadline
 - **Sun 22 Nov 2026, 09:00 Romania time** (EET, UTC+2).
-- Internal hard stop on experiments: Sat 21 Nov, 23:30.
+- Internal hard stop on experiments: **Sun 22 Nov, 06:00**, moved from Sat 23:30. Finals get picked 06:00–08:00.
 
 ## Submission limit
 - **30 submissions in total**, and we pick **2 final** ones. Rares makes every submission.

@@ -103,3 +103,35 @@ In the table below, each cell is clarity / evasion, OOF over 3,278 rows. Fixed s
 - **Nothing clears the bar.** The best evasion gain over v1 is **+0.008** (geo, both trios), far from +0.02, though clarity gains are consistent at +0.01 to +0.015. **v1 stays.**
 - **For runs 4–6:** use `--combine geo` or `temp` for seed ensembles. Run 4/5/6 models come from run 2's settings, so they'll be just as over-confident, and a plain average would let them dominate the run-1 models.
 - **Caveat:** the clarity method (combined / mapped / head) is still picked per set on OOF, a small in-sample choice.
+
+## After the v3 probe: choose on the sum; clarity and evasion separately (Rares, issue #2)
+The 50/50 formula is confirmed (`submissions/LEADERBOARD.md`). `select_ensemble.py` now defaults to `--objective sum`, with the bar at a nested **sum** gain of +0.02 over the submitted v1 (0.6626 + 0.3950 = 1.0576). New tools:
+- **`--objective clarity` / `--objective evasion_only`:** greedy selection for one subtask.
+- **`split_submission.py --clarity A.csv --evasion B.csv --out ...`:** clarity rows from one file, evasion rows from another, with the same checks as `evaluate.py`. It **reproduces `submissions/v3` byte for byte** from v2 (clarity) + v1 (evasion).
+- **`select_ensemble.py --dump` + `pick_recipes.py`:** picks the clarity recipe (any fixed recipe × combine mode × clarity method, 54 candidates) and the evasion recipe (18 candidates) separately, **with a nested check**.
+
+### Runs 1 + 2
+Nested greedy against v1, as Δclarity / Δevasion / Δsum:
+
+| combine | `--objective sum` | `clarity` bag + `evasion_only` bag (split) |
+|---|---|---|
+| plain | +0.010 / −0.001 / **+0.009** | +0.003 clarity, −0.020 evasion → −0.016 |
+| geo | +0.005 / −0.001 / +0.004 | +0.000, −0.006 → −0.005 |
+| temp | +0.002 / −0.007 / −0.005 | +0.002, −0.003 → −0.001 |
+
+Fixed recipes picked per subtask (`pick_recipes.py`):
+
+| | clarity | evasion | sum vs v1 |
+|---|---|---|---|
+| best clarity: R1 [temp] head; best evasion: T12 [geo], in-sample | 0.6773 | 0.4033 | +0.023 |
+| **same choice, nested** (pick on 4 folds, score on the 5th) | 0.6654 | 0.3835 | **−0.009** |
+| **v2 as submitted** (T12 [geo] for both, one pre-set choice) | 0.6755 | 0.4033 | **+0.021** |
+
+**Findings:**
+- **Picking the best recipe per subtask is noise.** The 5 nested folds pick 3 different clarity recipes and 4 different evasion recipes, and the +0.023 in-sample gain turns into −0.009.
+- **Nested greedy gets no closer:** at most +0.009 on the sum.
+- **The best-supported candidate is v2 as Rares submitted it:** both trios with the geometric mean, for both subtasks. It's a single choice made from the run-2 confidence diagnosis, with no search over recipes. It gives **+0.021 sum** over v1 (clarity +0.013, evasion +0.008), the only candidate at the bar without a search. Strictly it isn't nested: the clarity method, *mapped*, is still picked from 3.
+- **For tonight's seeds (runs 4–6):** keep **one pre-set recipe**, the geometric mean of every model, and add seeds rather than choose between recipes.
+  - In `RECIPES`, R1 (large lr 1e-5 models) is pattern-based and picks new seeds up automatically. Both trios (T12) is a fixed list of names.
+  - **Proposal:** the v4 candidate is the geometric mean of the T12 models plus every new large lr 1e-5 seed.
+  - Split clarity / evasion only if a *pre-set* split beats it by more than noise.

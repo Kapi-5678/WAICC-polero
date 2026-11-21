@@ -33,13 +33,17 @@ from common import load, folds, EVASION_LABELS, CLARITY_LABELS, EVASION_TO_CLARI
 ap = argparse.ArgumentParser()
 ap.add_argument("--runs", nargs="+", default=["results/run1"])
 ap.add_argument("--max_steps", type=int, default=30)
-ap.add_argument("--objective", choices=["evasion", "sum"], default="evasion")
+ap.add_argument("--objective", choices=["sum", "clarity", "evasion_only", "evasion"], default="sum",
+                help="sum: clarity + evasion (default, Rares after the v3 probe); clarity / evasion_only: choose a bag "
+                     "for one subtask only (combine two with split_submission.py); evasion: evasion first with "
+                     "clarity within --max_clarity_drop of v1 (the earlier rule)")
 ap.add_argument("--max_clarity_drop", type=float, default=0.01)
 ap.add_argument("--submission", help="write the selected ensemble's test predictions to this csv")
 ap.add_argument("--recipe", action="append", metavar="LABEL=PATTERN[,PATTERN]",
                 help="fixed equal-weight average of the configs matching the patterns (repeatable); "
                      "default: the RECIPES below")
 ap.add_argument("--combine", choices=["plain", "geo", "temp"], default="plain")
+ap.add_argument("--dump", metavar="NPZ", help="save every fixed recipe's OOF and test probabilities (for pick_recipes.py)")
 ap.add_argument("--submit_recipe", metavar="LABEL", help="with --submission: write this recipe's predictions instead of the greedy bag")
 args = ap.parse_args()
 
@@ -151,6 +155,10 @@ def ref_clarity(rows):
 def objective(cl, ev, ref):
     if args.objective == "sum":
         return (cl + ev,)
+    if args.objective == "clarity":
+        return (cl, ev)
+    if args.objective == "evasion_only":
+        return (ev, cl)
     return (cl >= ref - args.max_clarity_drop - 1e-12, ev, cl)  # feasible first, then evasion, then clarity
 
 
@@ -239,6 +247,10 @@ if W_V1 is not None:
     if args.objective == "evasion":
         ok = n_ev - v1_ev >= 0.02 and n_cl - v1_cl >= -args.max_clarity_drop
         print(f"bar for a new submission: nested evasion +0.02 with clarity drop <= {args.max_clarity_drop:g} -> {'MET' if ok else 'not met'}")
+    elif args.objective in ("clarity", "evasion_only"):
+        part, gain = ("clarity", n_cl - v1_cl) if args.objective == "clarity" else ("evasion", n_ev - v1_ev)
+        print(f"objective {args.objective}: nested {part} {gain:+.4f} vs v1. Use this bag only for the {part} rows; "
+              f"a split submission's nested sum = nested clarity of the clarity bag + nested evasion of the evasion bag (bar +0.02)")
     else:
         print(f"bar for a new submission: nested sum +0.02 -> {'MET' if n_cl + n_ev - v1_sum >= 0.02 else 'not met'}")
 
@@ -248,6 +260,17 @@ if W_REC:
         cl, ev, _ = score(blend(w, PE), blend(w, PC))
         vs = f"  vs v1: evasion {ev - v1_ev:+.4f}, clarity {cl - v1_cl:+.4f}" if W_V1 is not None else ""
         print(f"  {label}: {[n for n, x in zip(names, w) if x]}{vs}")
+
+if args.dump:
+    out = {"y_ev": y_ev, "y_cl": y_cl, "test_ids": te.datapointID.values, "labels": np.array(list(W_REC))}
+    for i, (label, w) in enumerate(W_REC.items()):
+        out[f"pe{i}"], out[f"pc{i}"] = blend(w, PE), blend(w, PC)
+        out[f"tpe{i}"], out[f"tpc{i}"] = blend(w, TPE), blend(w, TPC)
+    if W_V1 is not None:  # the submitted v1, always as a plain average of the raw probabilities
+        w1 = W_V1 / W_V1.sum()
+        out["v1_pe"], out["v1_pc"] = np.tensordot(w1, PE_RAW, axes=1), np.tensordot(w1, PC_RAW, axes=1)
+    np.savez(args.dump, combine=args.combine, **out)
+    print("wrote", args.dump)
 
 if args.submission:
     w_out = W_REC[args.submit_recipe] if args.submit_recipe else w_sel
