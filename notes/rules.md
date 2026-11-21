@@ -1,19 +1,21 @@
 # Competition rules
 
-**Status:** external data and LLM APIs are settled (both **not allowed**, confirmed by the team). The metric, deadline and submission limit are still marked **TODO**: I couldn't find the competition page with a web search, so whoever has the link should check them. Everything else comes from our repo and the PolERo paper, with the source noted.
+**Status:** all questions answered by Rares in issue #2 (21 Nov). The competition page doesn't name the metric, so the formula below is our working assumption.
 
 ## Evaluation metric
-- **TODO: confirm on the competition page.**
-- Likely **macro-F1**, scored separately for Subtask 1 (clarity, 3 classes) and Subtask 2 (evasion, 9 classes). That's the primary metric in the PolERo paper (Section 3.1) and in SemEval-2026 Task 6, which this task copies.
-- Submission format, as `common.write_submission` writes it (check it against `sample_output.csv`): one CSV with columns `subtaskID, datapointID, answer`. Rows with `subtaskID=1` hold the clarity label and rows with `subtaskID=2` the evasion label, for each of the 296 test rows.
-- **TODO:** is the leaderboard score the average of the two subtasks, or are they ranked separately? Is the public leaderboard computed on a subset of test?
+- **Each subtask is worth 50 points.** The task text doesn't name the metric. We optimise **macro-F1 per subtask**, as in the PolERo paper (Section 3.1) and SemEval-2026 Task 6, and assume score = 50 × clarity macro-F1 + 50 × evasion macro-F1.
+- **The leaderboard doesn't settle the formula.** It shows two identical score columns. v1 scored **41.93** (rank 20 of 35). The real top is about 54.2, because #1's exact 100 is almost certainly the leaked public labels.
+- **41.93 looks like evasion only.** Under the 50/50 formula, OOF predicts v1 at 52.5 ± 3.5, and 41.93 would be a 1-in-1,700 result (`ensemble/leaderboard_noise.md`). It fits evasion only: 100 × evasion macro-F1 is expected at 38.9 (31.1–46.2).
+- **Working rule (Rares):** evasion is at least half the score under either formula and has the most room to gain. So **rank models by evasion OOF macro-F1 first**, and accept a clarity drop of at most 0.01.
+- **Submission format:** as `common.write_submission` / `evaluate.py` write it. One CSV with columns `subtaskID, datapointID, answer`, in `data/sample_output.csv` row order. Rows with `subtaskID=1` hold the clarity label and rows with `subtaskID=2` the evasion label, for each of the 296 test rows (592 rows). The uploaded file is `submissions/vN/polero_vN.py`, built by `make_submission_py.py`.
+- **Public / private split:** not stated. Treat the leaderboard as noisy either way and don't tune against it. With 296 rows, a gap under about ±4–6 points is noise for two similar submissions (`ensemble/leaderboard_noise.md`).
 
 ## Deadline
-- **TODO: confirm on the competition page**, including the time zone.
-- Our working assumption (`TEAM_TASKS.md`): **Sun 22 Nov 2026, 09:00**, with experiments stopping Sat 21 Nov 23:30.
+- **Sun 22 Nov 2026, 09:00 Romania time** (EET, UTC+2).
+- Internal hard stop on experiments: Sat 21 Nov, 23:30.
 
 ## Submission limit
-- **TODO:** submissions per day, the total limit, and how many final submissions can be selected.
+- **30 submissions in total**, and we pick **2 final** ones. Rares makes every submission.
 
 ## External data (English QEvasion corpus)
 - **Not allowed** (confirmed by the team, 21 Nov).
@@ -24,7 +26,9 @@
 ## LLM APIs vs. open models
 - **External LLM APIs are not allowed** (confirmed by the team, 21 Nov).
 - So **task 3 as written (an API classifier) is dropped.**
-- **Open question:** may we run an open-weight LLM ourselves (for example Qwen3.6-35B-A3B or Gemma-4-31B-it on a Kaggle GPU)? "No API" doesn't settle that. In the paper, few-shot Qwen3.6-35B-A3B got the best Romanian evasion score (.682 vs .545 for the best encoder trained on our data alone). The catch: a ~35B model on Kaggle T4s needs 4-bit quantisation, and there is little time left. Only pursue it if it's explicitly allowed and someone can own it.
+- **Open-weight LLMs run by us are also off** (Rares, 21 Nov), so task 3b is off. For the record: in the paper, few-shot Qwen3.6-35B-A3B got the best Romanian evasion score (.682 vs .545 for the best encoder).
 
-## Other rules to check while on the page
-- **TODO:** team size and whether teams can merge; hand-labelling or other use of the test set (we never do this anyway); a requirement to submit code or a system description.
+## Other rules
+- **Team size is 3:** Rares (leader), TreiPaDus, and a third colleague who joins later.
+- **No code or system description is required.**
+- **Test data:** never read, inspect or hand-label `test_data.csv` answers. Test only goes through a finished model.
