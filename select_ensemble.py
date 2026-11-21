@@ -43,6 +43,8 @@ ap.add_argument("--recipe", action="append", metavar="LABEL=PATTERN[,PATTERN]",
                 help="fixed equal-weight average of the configs matching the patterns (repeatable); "
                      "default: the RECIPES below")
 ap.add_argument("--combine", choices=["plain", "geo", "temp"], default="plain")
+ap.add_argument("--epoch_avg", type=float, default=0, help="0: each config at its best epoch (default). "
+                "f > 0: average the probabilities of its last max(2, round(f * n_epochs)) epochs instead (fixed rule, no epoch pick)")
 ap.add_argument("--dump", metavar="NPZ", help="save every fixed recipe's OOF and test probabilities (for pick_recipes.py)")
 ap.add_argument("--submit_recipe", metavar="LABEL", help="with --submission: write this recipe's predictions instead of the greedy bag")
 args = ap.parse_args()
@@ -90,8 +92,19 @@ for c in sorted(groups):
         print(f"{c}: skipped, {len(runs)} folds")
         continue
     assert all((r["test_ids"] == te.datapointID.values).all() for r in runs), c
+    n_ep = sum(k.startswith("val_pe") for k in runs[0].files)
+    if args.epoch_avg:
+        eps = range(n_ep - max(2, round(args.epoch_avg * n_ep)), n_ep)
+        pe, pc = np.zeros((len(tr), 9)), np.zeros((len(tr), 3))
+        for r in runs:
+            pe[r["val_idx"]] = np.mean([r[f"val_pe{e}"] for e in eps], 0)
+            pc[r["val_idx"]] = np.mean([r[f"val_pc{e}"] for e in eps], 0)
+        names.append(c); PE.append(pe); PC.append(pc)
+        TPE.append(np.mean([r[f"test_pe{e}"] for r in runs for e in eps], 0)); TPC.append(np.mean([r[f"test_pc{e}"] for r in runs for e in eps], 0))
+        print(f"{c}: epochs {eps.start}-{eps.stop - 1} of {n_ep} averaged")
+        continue
     best = None
-    for e in range(sum(k.startswith("val_pe") for k in runs[0].files)):
+    for e in range(n_ep):
         pe, pc = np.zeros((len(tr), 9)), np.zeros((len(tr), 3))
         for r in runs:
             pe[r["val_idx"]], pc[r["val_idx"]] = r[f"val_pe{e}"], r[f"val_pc{e}"]

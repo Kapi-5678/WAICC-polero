@@ -135,3 +135,16 @@ Fixed recipes picked per subtask (`pick_recipes.py`):
   - In `RECIPES`, R1 (large lr 1e-5 models) is pattern-based and picks new seeds up automatically. Both trios (T12) is a fixed list of names.
   - **Proposal:** the v4 candidate is the geometric mean of the T12 models plus every new large lr 1e-5 seed.
   - Split clarity / evasion only if a *pre-set* split beats it by more than noise.
+
+## Two CPU-only checks (Sun ~00:10, runs 1-4 and 6, `--combine geo`)
+**1. Averaging each config's last epochs** (`--epoch_avg f`: mean of the last max(2, round(f·n)) epochs instead of the best epoch). The rule is fixed, with no epoch pick.
+
+| recipe | best epoch | f=0.3 | f=0.4 | f=0.5 |
+|---|---|---|---|---|
+| R3 (9) | 1.0896 | 1.0815 | 1.0805 | 1.0860 |
+| V4 (9) | 1.0809 | 1.0856 | 1.0879 | 1.0895 |
+| T12 (6) | 1.0788 | 1.0789 | 1.0811 | 1.0780 |
+
+Mixed, about ±0.008 either way. Best-epoch scores are slightly optimistic (the epoch is chosen on the same rows) and averaged scores are not. **No +0.02 gain, so the default stays `best`.**
+
+**2. Clarity offsets, nested** (3 per-class log offsets tuned on 4 folds and applied to the 5th; soft-mapped and combined clarity): changes of −0.005 to +0.005 on R3, V4 and T12. **Noise, dropped.**
