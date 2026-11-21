@@ -60,7 +60,7 @@ for cfg, files in sorted(groups.items()):
         tpe = np.mean([r[f"test_pe{e}"] for r in runs], 0)
         tpc = np.mean([r[f"test_pc{e}"] for r in runs], 0)
         s = score(pe, pc)
-        per_ep.append((s["clar_combined"] + s["evasion"], e, s, pe, pc, tpe, tpc))
+        per_ep.append((max(s["clar_combined"], s["clar_mapped"], s["clar_head"]) + s["evasion"], e, s, pe, pc, tpe, tpc))
         print(f"{cfg} epoch {e}: " + " ".join(f"{k}={v:.4f}" for k, v in s.items()))
     best[cfg] = max(per_ep, key=lambda t: t[0])
     print(f"{cfg}: best epoch {best[cfg][1]}\n")
@@ -68,16 +68,24 @@ for cfg, files in sorted(groups.items()):
 use = args.use or list(best)
 if not use:
     raise SystemExit("no complete 5-fold config found in " + args.runs)
-pe =np.mean([best[c][3] for c in use], 0)
+pe = np.mean([best[c][3] for c in use], 0)
 pc = np.mean([best[c][4] for c in use], 0)
 s = score(pe, pc)
 print(f"ensemble of {use}: " + " ".join(f"{k}={v:.4f}" for k, v in s.items()))
+clar_method = max(["clar_combined", "clar_mapped", "clar_head"], key=s.get)
+print("clarity method:", clar_method)
+
+
+def clarity_pred(pe, pc):
+    if clar_method == "clar_mapped":
+        return EV2CL[pe.argmax(1)]
+    return (pc if clar_method == "clar_head" else clarity_probs(pe, pc)).argmax(1)
 
 tpe = np.mean([best[c][5] for c in use], 0)
 tpc = np.mean([best[c][6] for c in use], 0)
 ids = np.load(groups[use[0]][0])["test_ids"]
 assert (ids == te.datapointID.values).all()
-clar = dict(zip(ids, [CLARITY_LABELS[j] for j in clarity_probs(tpe, tpc).argmax(1)]))
+clar = dict(zip(ids, [CLARITY_LABELS[j] for j in clarity_pred(tpe, tpc)]))
 evas = dict(zip(ids, [EVASION_LABELS[j] for j in tpe.argmax(1)]))
 
 sub = pd.read_csv("data/sample_output.csv")

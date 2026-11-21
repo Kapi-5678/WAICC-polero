@@ -1,0 +1,10 @@
+numpy>=2.0
+pandas>=2.0
+scikit-learn>=1.5
+scipy>=1.13
+torch>=2.4
+transformers>=4.44
+sentencepiece
+protobuf
+kaggle
+six
