@@ -41,8 +41,14 @@ RUNS = {
         ["--name", "r5-xlmr-large-lr1e-5-s44", "--model", "FacebookAI/xlm-roberta-large", "--lr", "1e-5", *LONG, "--seed", "44"],
         ["--name", "r5-robert-large-lr1e-5-s44", *ROBERT, "--seed", "44"],
     ],
+    # Run 7 (Colleague 2's Kaggle): clarity loss weighted 1.0 instead of 0.5, seed 42, so each config
+    # compares directly with its run-2 twin (r2-xlmr-large-lr1e-5 / r2-robert-large-lr1e-5)
+    "run7": [
+        ["--name", "r7-xlmr-large-cl1", "--model", "FacebookAI/xlm-roberta-large", "--lr", "1e-5", *LONG, "--cl_weight", "1.0"],
+        ["--name", "r7-robert-large-cl1", *ROBERT, "--cl_weight", "1.0"],
+    ],
 }
-RUN = "run4"  # Colleague 1 (TreiPaDus) changes this to "run5"
+RUN = "run7"
 CONFIGS = RUNS[RUN]
 jobs = [cfg + ["--fold", str(f)] for cfg in CONFIGS for f in range(5)]
 n_gpu = max(torch.cuda.device_count(), 1)
