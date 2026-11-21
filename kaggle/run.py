@@ -54,7 +54,7 @@ while jobs or running:
     for g in range(n_gpu):
         if g not in running and jobs:
             job = jobs.pop(0)
-            name = "_".join(a.split("/")[-1] for a in job[1::2])
+            name = f"{job[job.index('--name') + 1]}_f{job[job.index('--fold') + 1]}"  # flags like --president take no value
             log = open(f"runs/{name}.log", "w")
             env = dict(os.environ, CUDA_VISIBLE_DEVICES=str(g), TOKENIZERS_PARALLELISM="false")
             p = subprocess.Popen([sys.executable, "finetune.py", *job], stdout=log, stderr=subprocess.STDOUT, env=env)
