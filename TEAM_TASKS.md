@@ -19,7 +19,7 @@ From the PolERo paper (EMNLP 2026, 2026.emnlp-main.2688), copy the best reported
 Tasks 2 and 3 depend on these answers.
 
 ## Who does what (updated 13:30 after task 1)
-- **TreiPaDus:** task 1 done (PR #1). Now on **task 5**, then task 3b if Rares confirms it's allowed.
+- **TreiPaDus:** task 1 done (PR #1, rule answers in issue #2). Now on **task 5**.
 - **Colleague 2:** task 4 on arrival.
 - **Tasks 2 and 3 are dropped.** Per `notes/rules.md`, the rules allow neither external data nor LLM APIs.
 - **Never download or open the public PolERo release** (`github.com/gabriel-stefan/polero`). It most likely contains our test labels.
@@ -29,7 +29,7 @@ Tasks 2 and 3 depend on these answers.
 - The label strings must match exactly the 9 evasion and 3 clarity labels in `common.py`. Print a label count table and list any label that doesn't map.
 - Deliverable: the script plus label counts. Claude then adds an `--extra_en` training flag.
 
-## 3b. Open-weight LLM on Kaggle (ONLY if Rares confirms self-hosted open models are allowed)
+## 3b. Open-weight LLM on Kaggle (OFF for now, Rares' decision)
 - Same as task 3 below, but with an open-weight model running on a Kaggle GPU, with no API calls. In the paper, Qwen3.6-35B-A3B few-shot got the best evasion score (.682 vs .545 for the best encoder). On T4 x2 it needs 4-bit quantisation, so try the smaller Gemma or Qwen variants if that doesn't fit.
 - Score it on the fold-0 sample first, and run test only if it helps. Hard cut-off: no usable sample score by 20:00 means it's dropped.
 
@@ -57,10 +57,9 @@ Tasks 2 and 3 depend on these answers.
 | Sat 13:20 (done) | Kaggle run 1 finished. `submissions/submission_v1.csv` written (milestone 1, safe fallback). Predictions and scores in `results/run1/` for tasks 4 and 5 |
 | Sat ~14:00 | Kaggle run 2 starts with the paper's training settings (10+ epochs, 512 tokens, lr 2e-5 for RoBERT-large). Takes about 4 to 5 h |
 | Sat 18:00 | Tasks 4 and 5 done: error-analysis notes, bias-tuning result |
-| Sat 20:00 | Task 3b cut-off: sample score in, or dropped |
-| Sat ~22:30 | Run 2 finishes. Keep only add-ons that beat run 1's OOF score by at least 0.02. Write `submission_final.csv` (milestone 2) |
-| Sat 23:30 | **Hard stop on experiments.** Final file checked and uploaded by Rares |
-| Sun 09:00 | Deadline. The night is buffer for a rerun if something breaks |
+| Sat ~18:30 | Run 2 finishes. Keep only changes that beat run 1's OOF score by at least 0.02. Write `submission_final.csv` (milestone 2) |
+| Sat 23:30 | **Hard stop on experiments.** Rares uploads the final files and picks the **2 final submissions** (budget: 30 submissions in total) |
+| Sun 09:00 | Deadline, Romania time (EET). The night is buffer for a rerun if something breaks |
 
 Rules for stopping:
 - An add-on is kept only if it improves the ensemble's OOF macro-F1 (clarity + evasion) by at least 0.02. Smaller gains are within noise: there are only 36 Clarification and 56 Partial examples.
