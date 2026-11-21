@@ -9,3 +9,4 @@ models/
 *.bin
 *.safetensors
 runs/
+kaggle_upload/

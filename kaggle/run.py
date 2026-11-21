@@ -6,7 +6,7 @@ Outputs land in /kaggle/working/runs/*.npz plus one log per job.
 import glob, os, shutil, subprocess, sys, time
 import torch
 
-src = glob.glob("/kaggle/input/*/finetune.py")[0].rsplit("/", 1)[0]
+src = glob.glob("/kaggle/input/**/finetune.py", recursive=True)[0].rsplit("/", 1)[0]
 os.chdir("/kaggle/working")
 os.makedirs("data", exist_ok=True)
 os.makedirs("runs", exist_ok=True)
