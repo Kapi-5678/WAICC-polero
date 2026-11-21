@@ -1,0 +1,81 @@
+[{"stream_name":"stdout","time":18.654741049,"data":"20 jobs on 2 GPU(s)\n"}
+,{"stream_name":"stdout","time":1428.67728843,"data":"[24 min] r2-robert-large-lr1e-5_RoBERT-large_1e-5_10_512_128_8_0: ok in 23.5 min\n"}
+,{"stream_name":"stdout","time":1428.677365359,"data":"[24 min] r2-robert-large-lr1e-5_RoBERT-large_1e-5_10_512_128_8_1: ok in 23.5 min\n"}
+,{"stream_name":"stdout","time":2778.699153909,"data":"[46 min] r2-robert-large-lr1e-5_RoBERT-large_1e-5_10_512_128_8_2: ok in 22.3 min\n"}
+,{"stream_name":"stdout","time":2808.701161114,"data":"[47 min] r2-robert-large-lr1e-5_RoBERT-large_1e-5_10_512_128_8_3: ok in 22.8 min\n"}
+,{"stream_name":"stdout","time":4128.721412502,"data":"[69 min] r2-robert-large-lr1e-5_RoBERT-large_1e-5_10_512_128_8_4: ok in 22.3 min\n"}
+,{"stream_name":"stdout","time":4488.72814458,"data":"[75 min] r2-xlmr-large-lr1e-5_xlm-roberta-large_1e-5_10_512_128_8_0: ok in 27.8 min\n"}
+,{"stream_name":"stdout","time":5778.747433022,"data":"[96 min] r2-xlmr-large-lr1e-5_xlm-roberta-large_1e-5_10_512_128_8_1: ok in 27.3 min\n"}
+,{"stream_name":"stdout","time":6148.754078185,"data":"[102 min] r2-xlmr-large-lr1e-5_xlm-roberta-large_1e-5_10_512_128_8_2: ok in 27.5 min\n"}
+,{"stream_name":"stdout","time":7438.772938196,"data":"[124 min] r2-xlmr-large-lr1e-5_xlm-roberta-large_1e-5_10_512_128_8_3: ok in 27.5 min\n"}
+,{"stream_name":"stdout","time":7808.779595115,"data":"[130 min] r2-xlmr-large-lr1e-5_xlm-roberta-large_1e-5_10_512_128_8_4: ok in 27.5 min\n"}
+,{"stream_name":"stdout","time":8798.794869611,"data":"[146 min] r2-robert-large-lr2e-5_RoBERT-large_2e-5_10_512_128_8_0: ok in 22.5 min\n"}
+,{"stream_name":"stdout","time":9168.801467999,"data":"[153 min] r2-robert-large-lr2e-5_RoBERT-large_2e-5_10_512_128_8_1: ok in 22.5 min\n"}
+,{"stream_name":"stdout","time":10148.816404989,"data":"[169 min] r2-robert-large-lr2e-5_RoBERT-large_2e-5_10_512_128_8_2: ok in 22.3 min\n"}
+,{"stream_name":"stdout","time":10528.822935949,"data":"[175 min] r2-robert-large-lr2e-5_RoBERT-large_2e-5_10_512_128_8_3: ok in 22.5 min\n"}
+,{"stream_name":"stdout","time":10998.830979446,"data":"[183 min] r2-robert-base-lr2e-5_bert-base-romanian-cased-v1_2e-5_10_512_128_8_0: ok in 7.7 min\n"}
+,{"stream_name":"stdout","time":11458.838695239,"data":"[191 min] r2-robert-base-lr2e-5_bert-base-romanian-cased-v1_2e-5_10_512_128_8_1: ok in 7.5 min\n"}
+,{"stream_name":"stdout","time":11498.840675822,"data":"[191 min] r2-robert-large-lr2e-5_RoBERT-large_2e-5_10_512_128_8_4: ok in 22.3 min\n"}
+,{"stream_name":"stdout","time":11918.848093803,"data":"[198 min] r2-robert-base-lr2e-5_bert-base-romanian-cased-v1_2e-5_10_512_128_8_2: ok in 7.5 min\n"}
+,{"stream_name":"stdout","time":11968.850468891,"data":"[199 min] r2-robert-base-lr2e-5_bert-base-romanian-cased-v1_2e-5_10_512_128_8_3: ok in 7.7 min\n"}
+,{"stream_name":"stdout","time":12388.856511443,"data":"[206 min] r2-robert-base-lr2e-5_bert-base-romanian-cased-v1_2e-5_10_512_128_8_4: ok in 7.7 min\n"}
+,{"stream_name":"stdout","time":12400.49768238,"data":"r2-robert-base-lr2e-5_p0 epoch 0: clar_combined=0.4757 clar_mapped=0.4604 clar_head=0.4877 evasion=0.1731\n"}
+,{"stream_name":"stdout","time":12400.497714291,"data":"r2-robert-base-lr2e-5_p0 epoch 1: clar_combined=0.5723 clar_mapped=0.5869 clar_head=0.5925 evasion=0.2979\n"}
+,{"stream_name":"stdout","time":12400.497725691,"data":"r2-robert-base-lr2e-5_p0 epoch 2: clar_combined=0.6165 clar_mapped=0.6148 clar_head=0.6187 evasion=0.3354\n"}
+,{"stream_name":"stdout","time":12400.497729196,"data":"r2-robert-base-lr2e-5_p0 epoch 3: clar_combined=0.6280 clar_mapped=0.6163 clar_head=0.6222 evasion=0.3441\n"}
+,{"stream_name":"stdout","time":12400.497732506,"data":"r2-robert-base-lr2e-5_p0 epoch 4: clar_combined=0.6293 clar_mapped=0.6286 clar_head=0.6260 evasion=0.3559\n"}
+,{"stream_name":"stdout","time":12400.497735554,"data":"r2-robert-base-lr2e-5_p0 epoch 5: clar_combined=0.6324 clar_mapped=0.6271 clar_head=0.6257 evasion=0.3461\n"}
+,{"stream_name":"stdout","time":12400.497746815,"data":"r2-robert-base-lr2e-5_p0 epoch 6: clar_combined=0.6259 clar_mapped=0.6202 clar_head=0.6304 evasion=0.3412\n"}
+,{"stream_name":"stdout","time":12400.497749331,"data":"r2-robert-base-lr2e-5_p0 epoch 7: clar_combined=0.6275 clar_mapped=0.6258 clar_head=0.6249 evasion=0.3591\n"}
+,{"stream_name":"stdout","time":12400.49775163,"data":"r2-robert-base-lr2e-5_p0 epoch 8: clar_combined=0.6311 clar_mapped=0.6260 clar_head=0.6340 evasion=0.3647\n"}
+,{"stream_name":"stdout","time":12400.49775391,"data":"r2-robert-base-lr2e-5_p0 epoch 9: clar_combined=0.6342 clar_mapped=0.6299 clar_head=0.6301 evasion=0.3653\n"}
+,{"stream_name":"stdout","time":12400.497756323,"data":"r2-robert-base-lr2e-5_p0: best epoch 9\n"}
+,{"stream_name":"stdout","time":12400.497758563,"data":"\n"}
+,{"stream_name":"stdout","time":12400.497760718,"data":"r2-robert-large-lr1e-5_p0 epoch 0: clar_combined=0.3104 clar_mapped=0.3490 clar_head=0.3687 evasion=0.1291\n"}
+,{"stream_name":"stdout","time":12400.497763074,"data":"r2-robert-large-lr1e-5_p0 epoch 1: clar_combined=0.5969 clar_mapped=0.5985 clar_head=0.6077 evasion=0.3098\n"}
+,{"stream_name":"stdout","time":12400.497765462,"data":"r2-robert-large-lr1e-5_p0 epoch 2: clar_combined=0.6326 clar_mapped=0.6360 clar_head=0.6421 evasion=0.3589\n"}
+,{"stream_name":"stdout","time":12400.497767752,"data":"r2-robert-large-lr1e-5_p0 epoch 3: clar_combined=0.6493 clar_mapped=0.6430 clar_head=0.6525 evasion=0.3536\n"}
+,{"stream_name":"stdout","time":12400.497770079,"data":"r2-robert-large-lr1e-5_p0 epoch 4: clar_combined=0.6432 clar_mapped=0.6438 clar_head=0.6442 evasion=0.3609\n"}
+,{"stream_name":"stdout","time":12400.497772363,"data":"r2-robert-large-lr1e-5_p0 epoch 5: clar_combined=0.6347 clar_mapped=0.6403 clar_head=0.6337 evasion=0.3661\n"}
+,{"stream_name":"stdout","time":12400.497774863,"data":"r2-robert-large-lr1e-5_p0 epoch 6: clar_combined=0.6568 clar_mapped=0.6535 clar_head=0.6480 evasion=0.3752\n"}
+,{"stream_name":"stdout","time":12400.497777156,"data":"r2-robert-large-lr1e-5_p0 epoch 7: clar_combined=0.6483 clar_mapped=0.6447 clar_head=0.6461 evasion=0.3625\n"}
+,{"stream_name":"stdout","time":12400.497780359,"data":"r2-robert-large-lr1e-5_p0 epoch 8: clar_combined=0.6470 clar_mapped=0.6427 clar_head=0.6447 evasion=0.3602\n"}
+,{"stream_name":"stdout","time":12400.497782668,"data":"r2-robert-large-lr1e-5_p0 epoch 9: clar_combined=0.6484 clar_mapped=0.6451 clar_head=0.6466 evasion=0.3587\n"}
+,{"stream_name":"stdout","time":12400.497785088,"data":"r2-robert-large-lr1e-5_p0: best epoch 6\n"}
+,{"stream_name":"stdout","time":12400.49778731,"data":"\n"}
+,{"stream_name":"stdout","time":12400.497789456,"data":"r2-robert-large-lr2e-5_p0 epoch 0: clar_combined=0.5058 clar_mapped=0.4894 clar_head=0.5097 evasion=0.1790\n"}
+,{"stream_name":"stdout","time":12400.497791741,"data":"r2-robert-large-lr2e-5_p0 epoch 1: clar_combined=0.6096 clar_mapped=0.6143 clar_head=0.6176 evasion=0.3328\n"}
+,{"stream_name":"stdout","time":12400.497794126,"data":"r2-robert-large-lr2e-5_p0 epoch 2: clar_combined=0.6345 clar_mapped=0.6276 clar_head=0.6369 evasion=0.3464\n"}
+,{"stream_name":"stdout","time":12400.497796803,"data":"r2-robert-large-lr2e-5_p0 epoch 3: clar_combined=0.6345 clar_mapped=0.6344 clar_head=0.6303 evasion=0.3469\n"}
+,{"stream_name":"stdout","time":12400.497799117,"data":"r2-robert-large-lr2e-5_p0 epoch 4: clar_combined=0.6284 clar_mapped=0.6340 clar_head=0.6298 evasion=0.3581\n"}
+,{"stream_name":"stdout","time":12400.497801389,"data":"r2-robert-large-lr2e-5_p0 epoch 5: clar_combined=0.6345 clar_mapped=0.6287 clar_head=0.6321 evasion=0.3525\n"}
+,{"stream_name":"stdout","time":12400.497803669,"data":"r2-robert-large-lr2e-5_p0 epoch 6: clar_combined=0.6418 clar_mapped=0.6438 clar_head=0.6447 evasion=0.3613\n"}
+,{"stream_name":"stdout","time":12400.497808499,"data":"r2-robert-large-lr2e-5_p0 epoch 7: clar_combined=0.6448 clar_mapped=0.6444 clar_head=0.6401 evasion=0.3483\n"}
+,{"stream_name":"stdout","time":12400.497810875,"data":"r2-robert-large-lr2e-5_p0 epoch 8: clar_combined=0.6392 clar_mapped=0.6357 clar_head=0.6354 evasion=0.3455\n"}
+,{"stream_name":"stdout","time":12400.497813328,"data":"r2-robert-large-lr2e-5_p0 epoch 9: clar_combined=0.6381 clar_mapped=0.6397 clar_head=0.6363 evasion=0.3456\n"}
+,{"stream_name":"stdout","time":12400.497815638,"data":"r2-robert-large-lr2e-5_p0: best epoch 6\n"}
+,{"stream_name":"stdout","time":12400.497817886,"data":"\n"}
+,{"stream_name":"stdout","time":12400.497819999,"data":"r2-xlmr-large-lr1e-5_p0 epoch 0: clar_combined=0.2736 clar_mapped=0.3112 clar_head=0.3640 evasion=0.1099\n"}
+,{"stream_name":"stdout","time":12400.497822302,"data":"r2-xlmr-large-lr1e-5_p0 epoch 1: clar_combined=0.6027 clar_mapped=0.5849 clar_head=0.6045 evasion=0.2495\n"}
+,{"stream_name":"stdout","time":12400.497824592,"data":"r2-xlmr-large-lr1e-5_p0 epoch 2: clar_combined=0.6583 clar_mapped=0.6612 clar_head=0.6603 evasion=0.3494\n"}
+,{"stream_name":"stdout","time":12400.497826885,"data":"r2-xlmr-large-lr1e-5_p0 epoch 3: clar_combined=0.6553 clar_mapped=0.6555 clar_head=0.6607 evasion=0.3558\n"}
+,{"stream_name":"stdout","time":12400.497829166,"data":"r2-xlmr-large-lr1e-5_p0 epoch 4: clar_combined=0.6565 clar_mapped=0.6555 clar_head=0.6574 evasion=0.3785\n"}
+,{"stream_name":"stdout","time":12400.497831458,"data":"r2-xlmr-large-lr1e-5_p0 epoch 5: clar_combined=0.6519 clar_mapped=0.6446 clar_head=0.6527 evasion=0.3714\n"}
+,{"stream_name":"stdout","time":12400.497833763,"data":"r2-xlmr-large-lr1e-5_p0 epoch 6: clar_combined=0.6624 clar_mapped=0.6631 clar_head=0.6577 evasion=0.3787\n"}
+,{"stream_name":"stdout","time":12400.497836346,"data":"r2-xlmr-large-lr1e-5_p0 epoch 7: clar_combined=0.6611 clar_mapped=0.6571 clar_head=0.6623 evasion=0.3770\n"}
+,{"stream_name":"stdout","time":12400.497838696,"data":"r2-xlmr-large-lr1e-5_p0 epoch 8: clar_combined=0.6599 clar_mapped=0.6584 clar_head=0.6544 evasion=0.3812\n"}
+,{"stream_name":"stdout","time":12400.497841002,"data":"r2-xlmr-large-lr1e-5_p0 epoch 9: clar_combined=0.6590 clar_mapped=0.6592 clar_head=0.6620 evasion=0.3751\n"}
+,{"stream_name":"stdout","time":12400.497843298,"data":"r2-xlmr-large-lr1e-5_p0: best epoch 6\n"}
+,{"stream_name":"stdout","time":12400.497845501,"data":"\n"}
+,{"stream_name":"stdout","time":12400.497847671,"data":"ensemble of ['r2-robert-base-lr2e-5_p0', 'r2-robert-large-lr1e-5_p0', 'r2-robert-large-lr2e-5_p0', 'r2-xlmr-large-lr1e-5_p0']: clar_combined=0.6628 clar_mapped=0.6624 clar_head=0.6613 evasion=0.3862\n"}
+,{"stream_name":"stdout","time":12400.497851244,"data":"clarity method: clar_combined\n"}
+,{"stream_name":"stdout","time":12400.497853469,"data":"wrote submission.csv\n"}
+,{"stream_name":"stdout","time":12400.497855707,"data":"{'Clear Reply': 172, 'Ambivalent': 107, 'Clear Non-Reply': 17}\n"}
+,{"stream_name":"stdout","time":12400.497858029,"data":"{'Explicit': 183, 'General': 34, 'Implicit': 28, 'Dodging': 20, 'Declining to answer': 15, 'Deflection': 7, 'Claims ignorance': 4, 'Clarification': 3, 'Partial/half-answer': 2}\n"}
+,{"stream_name":"stderr","time":12403.552527955,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":12403.552554651,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":12403.926357631,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":12403.92639195,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":12404.826813907,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":12406.22863542,"data":"[NbConvertApp] Writing 286847 bytes to __results__.html\n"}
+]
