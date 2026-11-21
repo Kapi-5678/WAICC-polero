@@ -4,8 +4,8 @@
 | Role | Who | GitHub |
 |---|---|---|
 | Team leader | Rares | Kapi-5678 |
-| Colleague 1 | TreiPaDus | TreiPaDus |
-| Colleague 2 | notneagu | notneagu |
+| Colleague 1 | Mihai | TreiPaDus |
+| Colleague 2 | Neagu | notneagu |
 
 Rares merges every PR and makes every competition submission. Questions go in a GitHub issue. Rares answers them.
 

@@ -2,7 +2,7 @@
 
 Models for the PolERo shared task: classifying Romanian presidential interview answers by clarity (3 classes, Subtask 1) and evasion strategy (9 classes, Subtask 2). Who does what, and by when, is in [TEAM_TASKS.md](TEAM_TASKS.md).
 
-**Team:** Rares (team leader, [@Kapi-5678](https://github.com/Kapi-5678)), Colleague 1 ([@TreiPaDus](https://github.com/TreiPaDus)), Colleague 2 (joining later).
+**Team:** Rares (team leader, [@Kapi-5678](https://github.com/Kapi-5678)), Mihai (Colleague 1, [@TreiPaDus](https://github.com/TreiPaDus)), Neagu (Colleague 2, [@notneagu](https://github.com/notneagu)).
 
 **Submissions:** each one lives in its own folder `submissions/vN/` with exactly one input and one output:
 - `polero_vN.py` (input, the file we upload): standalone Python. Running it writes `submission.csv`, and `python polero_vN.py unpack` writes out the pipeline source.
