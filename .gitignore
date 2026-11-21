@@ -1,0 +1,10 @@
+# Competition data (not ours to redistribute)
+data/*.csv
+# Python
+__pycache__/
+*.pyc
+.venv/
+# Model checkpoints
+models/
+*.bin
+*.safetensors
