@@ -1,40 +1,46 @@
-# Task 4: error analysis of run 1
+# Task 4b: error analysis of run 1
 
 Ensemble analysed: `submission_v1`, i.e. XLM-R large + RoBERT-large + Romanian BERT base, best epochs. Out-of-fold over all 3,278 train rows: evasion macro-F1 0.3950, clarity 0.6626.
 
 ```
 .venv\Scripts\python analysis/export_errors.py
 ```
-This writes `analysis/errors.csv` (1,378 errors, git-ignored because it holds train text) and `analysis/confusion.csv`.
+This writes `analysis/errors.csv` (1,378 errors, focus classes first, git-ignored because it holds train text) and `analysis/confusion.md` (matrix plus per-class precision / recall / F1).
 
-## Confusion matrix (gold rows, predicted columns)
-
-| gold \ pred | Expl | Impl | Gen | Part | Dodg | Defl | Decl | Ign | Clar |
-|---|---|---|---|---|---|---|---|---|---|
-| Explicit (1801) | **1408** | 81 | 174 | 8 | 56 | 39 | 20 | 15 | 0 |
-| Implicit (276) | 106 | **71** | 29 | 4 | 34 | 21 | 7 | 3 | 1 |
-| General (438) | 173 | 41 | **141** | 1 | 40 | 23 | 16 | 3 | 0 |
-| Partial (56) | 26 | 5 | 10 | **0** | 3 | 6 | 4 | 2 | 0 |
-| Dodging (286) | 69 | 36 | 22 | 1 | **114** | 10 | 22 | 6 | 6 |
-| Deflection (179) | 61 | 23 | 44 | 2 | 20 | **21** | 7 | 1 | 0 |
-| Declining (148) | 11 | 4 | 3 | 1 | 24 | 8 | **95** | 2 | 0 |
-| Claims ignorance (58) | 8 | 0 | 2 | 1 | 7 | 2 | 4 | **33** | 1 |
-| Clarification (36) | 4 | 2 | 1 | 0 | 11 | 0 | 0 | 1 | **17** |
+## Confusion matrix
+The full matrix and per-class precision / recall / F1 are in `analysis/confusion.md`. Per-class F1: Explicit .768, Declining .588, Clarification .557, Claims ignorance .532, Dodging .383, General .326, Implicit .263, **Deflection .136, Partial .000**.
 
 Biggest confusions: Explicit ↔ General (174 / 173), Implicit → Explicit (106), Explicit → Implicit (81). Almost every class leaks into Explicit. **Partial/half-answer is never predicted correctly** (0 of 56), and **Deflection is mostly predicted as something else** (21 of 179 right).
 
 ## What I read
-I sampled 100 errors across the main confusion pairs (seed 0) and tagged each one. Tags are in `analysis/tagged_sample.csv`, with a short note per row.
+I read and tagged **140 errors**. Tags are in `analysis/tagged_sample.csv`, with a short note per row.
+- **100 broad:** sampled across the main confusion pairs (seed 0).
+- **40 focused:** 20 Partial, 10 Implicit (not predicted Explicit) and 10 Deflection (predicted Explicit or Implicit), seed 1. These are the classes task 5 showed need better models, not thresholds.
 
-| Tag | Count |
-|---|---|
-| Genuinely ambiguous | 59 |
-| Model clearly wrong | 29 |
-| Gold label looks wrong | 12 |
+| Tag | Broad 100 | Focused 40 | Of which Partial / Deflection / Implicit gold (78) |
+|---|---|---|---|
+| Genuinely ambiguous | 59 | 33 | 58 (Partial 23, Deflection 22, Implicit 13) |
+| Model clearly wrong | 29 | 4 | 10 (Partial 4, Deflection 2, Implicit 4) |
+| Gold label looks wrong | 12 | 3 | 10 (Partial 3, Deflection 5, Implicit 2) |
 
 - **Mostly ambiguous:** Explicit / General / Implicit, Dodging ↔ Deflection, and Deflection → General. This matches the paper's annotator agreement, which is lowest for Deflection (κ=.36) and General (κ=.46).
-- **The model's clear mistakes cluster** in Declining → Dodging (6 of 8), Clarification → Dodging (5 of 6), and the two Claims-ignorance pairs.
-- **Gold labels that look wrong** are mostly short direct answers labelled Deflection or Implicit, such as "Nu cred că e o monedă de schimb" or "Eu nu fac înțelegeri cu nimeni". One row is a parsing error: another journalist's question appears inside the answer.
+- **The model's clear mistakes cluster** in Declining → Dodging (6 of 8), Clarification → Dodging (5 of 6), and the two Claims-ignorance pairs. Those classes already score .53–.59 and have surface cues.
+- **Gold labels that look wrong** are mostly short direct answers labelled Deflection or Implicit, such as "Nu cred că e o monedă de schimb" or "Eu nu fac înțelegeri cu nimeni". Two rows are transcript artefacts: another journalist's question inside the answer, and an answer given twice, in English and in Romanian.
+
+### The three focus classes
+- **Partial/half-answer (F1 .000).** Of 30 read, the clear model mistakes are all **multi-part questions** where one part is answered and the other skipped:
+  - "Judecător la CCR numiți? V-ați hotărât?" → "în următoarele 10 zile";
+  - "veți merge până la sfârșitul anului?" → "o voi face cu plăcere";
+  - the Exxon + TurkStream question, answered clearly on only one of the two.
+
+  The rest are borderline with Explicit or General. Over the full train set, questions with two or more "?" or a "a doua întrebare / două întrebări / și dacă" marker have a Partial rate of 7.0% vs 1.4%. They cover only 14 of the 56 Partial rows, though. Partial is mostly "covers some of what was asked", which needs the full question (pattern 1 below).
+- **Deflection (F1 .136).** Of 29 read, 22 are genuinely ambiguous. The answer stays on the topic but steers to a related point ("Mă tem de acea incapacitate de a vedea…", "Ar fi mai dinamic fără Iliescu?" → a long take on PSD's internal fights). There's no lexical cue to key on. 5 of the 29 look mislabelled: they're direct answers. **Don't expect a feature or rule to fix Deflection.** Ensembling and stacking (task 6) are the realistic levers.
+- **Implicit (F1 .263).** Of 19 read, 13 are ambiguous with General: a broad answer from which a stance can be inferred. The clear mistakes are literal readings of an implied answer:
+  - "Am o listă de nume și voi decide" means no name yet;
+  - "Cred că ne permite timpul o localitate" means none;
+  - "cetățenii au dreptate, nu?" means yes.
+
+  These need the model to compare the answer to the question's yes/no intent, which more question context helps with (pattern 1).
 
 ## Patterns worth fixing
 Measured over the full train set, not just the sample.

@@ -1,101 +1,141 @@
-datapointID,gold,pred,tag,note
-86,Explicit,General,genuinely ambiguous,Explicit vs General boundary: answer is on-topic but broad
-3738,Explicit,General,genuinely ambiguous,Explicit vs General boundary: answer is on-topic but broad
-3568,Explicit,General,genuinely ambiguous,Explicit vs General boundary: answer is on-topic but broad
-5339,Explicit,General,model clearly wrong,opens with 'Cu siguranță că putem'
-6642,Explicit,General,model clearly wrong,opens with a direct 'Nu cred că…'
-7320,Explicit,General,genuinely ambiguous,Explicit vs General boundary: answer is on-topic but broad
-7481,Explicit,General,genuinely ambiguous,Explicit vs General boundary: answer is on-topic but broad
-4310,Explicit,General,genuinely ambiguous,Explicit vs General boundary: answer is on-topic but broad
-6451,Explicit,General,model clearly wrong,'Fără vaccinare nu putem…' directly answers how
-597,Explicit,General,model clearly wrong,'Lucrurile converg spre război' answers the yes/no
-3335,General,Explicit,genuinely ambiguous,General vs Explicit boundary: on-topic answer without the asked specificity
-2349,General,Explicit,genuinely ambiguous,General vs Explicit boundary: on-topic answer without the asked specificity
-2049,General,Explicit,gold label looks wrong,answer lists concrete reasons; reads as Explicit
-3026,General,Explicit,genuinely ambiguous,General vs Explicit boundary: on-topic answer without the asked specificity
-7244,General,Explicit,model clearly wrong,"'Am discutat cu mai multă lume' is non-committal, not Explicit"
-3859,General,Explicit,genuinely ambiguous,General vs Explicit boundary: on-topic answer without the asked specificity
-40,General,Explicit,gold label looks wrong,narrative but answers the why; reads as Explicit
-3485,General,Explicit,genuinely ambiguous,General vs Explicit boundary: on-topic answer without the asked specificity
-1444,General,Explicit,genuinely ambiguous,General vs Explicit boundary: on-topic answer without the asked specificity
-6229,General,Explicit,genuinely ambiguous,General vs Explicit boundary: on-topic answer without the asked specificity
-7127,Implicit,Explicit,model clearly wrong,'Am o listă… voi decide' implies no name yet; model takes it literally
-819,Implicit,Explicit,gold label looks wrong,'Eu nu fac înțelegeri cu nimeni' is an explicit no
-1157,Implicit,Explicit,genuinely ambiguous,answer implies rather than states; borderline
-7024,Implicit,Explicit,model clearly wrong,'ne permite timpul o localitate' implies none; read literally
-1457,Implicit,Explicit,genuinely ambiguous,answer implies rather than states; borderline
-6244,Implicit,Explicit,model clearly wrong,conditional non-answer read as Explicit
-7306,Implicit,Explicit,genuinely ambiguous,answer implies rather than states; borderline
-5215,Implicit,Explicit,gold label looks wrong,opens with 'Da.'; explicit
-6798,Implicit,Explicit,genuinely ambiguous,answer implies rather than states; borderline
-775,Explicit,Implicit,genuinely ambiguous,short or context-dependent answer; borderline
-358,Explicit,Implicit,gold label looks wrong,'Mi-e greu să fiu optimist sau pesimist' does not answer; not Explicit
-1131,Explicit,Implicit,genuinely ambiguous,short or context-dependent answer; borderline
-6688,Explicit,Implicit,model clearly wrong,short factual confirmation predicted Implicit
-4328,Explicit,Implicit,model clearly wrong,gives the reason directly
-6048,Explicit,Implicit,genuinely ambiguous,short or context-dependent answer; borderline
-4924,Explicit,Implicit,genuinely ambiguous,short or context-dependent answer; borderline
-4889,Dodging,Deflection,genuinely ambiguous,passes the question to another actor; gold is inconsistent between Dodging/Deflection/Declining
-5150,Dodging,Deflection,genuinely ambiguous,passes the question to another actor; gold is inconsistent between Dodging/Deflection/Declining
-5087,Dodging,Deflection,genuinely ambiguous,passes the question to another actor; gold is inconsistent between Dodging/Deflection/Declining
-5351,Dodging,Deflection,genuinely ambiguous,passes the question to another actor; gold is inconsistent between Dodging/Deflection/Declining
-148,Dodging,Deflection,genuinely ambiguous,passes the question to another actor; gold is inconsistent between Dodging/Deflection/Declining
-4179,Dodging,Deflection,genuinely ambiguous,passes the question to another actor; gold is inconsistent between Dodging/Deflection/Declining
-4013,Deflection,Dodging,genuinely ambiguous,passes the question to another actor; gold is inconsistent between Dodging/Deflection/Declining
-7207,Deflection,Dodging,genuinely ambiguous,passes the question to another actor; gold is inconsistent between Dodging/Deflection/Declining
-5358,Deflection,Dodging,genuinely ambiguous,passes the question to another actor; gold is inconsistent between Dodging/Deflection/Declining
-6995,Deflection,Dodging,genuinely ambiguous,passes the question to another actor; gold is inconsistent between Dodging/Deflection/Declining
-5600,Deflection,Dodging,genuinely ambiguous,passes the question to another actor; gold is inconsistent between Dodging/Deflection/Declining
-6498,Deflection,Dodging,genuinely ambiguous,passes the question to another actor; gold is inconsistent between Dodging/Deflection/Declining
-4778,Deflection,Explicit,gold label looks wrong,'Sigur că este o variantă bună' answers; Explicit/Partial
-7651,Deflection,Explicit,model clearly wrong,rejects the premise; fooled by the 'Nu' opener
-3380,Deflection,Explicit,model clearly wrong,'vor fi anunțați la momentul potrivit' is a postponement
-1354,Deflection,Explicit,gold label looks wrong,parsing error: another journalist's question is inside the answer
-6515,Deflection,Explicit,gold label looks wrong,'Nu cred că e o monedă de schimb' answers directly
-7359,Deflection,Explicit,gold label looks wrong,'Evident că nu este un război' answers directly
-4406,Deflection,Explicit,genuinely ambiguous,"addresses part of the topic, shifts focus; borderline"
-4332,Dodging,Explicit,model clearly wrong,'poziția mea este în interesul românilor. Punct.' is a dodge
-2633,Dodging,Explicit,model clearly wrong,answers with an unrelated example
-4702,Dodging,Explicit,gold label looks wrong,'Am știut și știu impactul' answers directly
-3113,Dodging,Explicit,genuinely ambiguous,banter or context-dependent; borderline
-2530,Dodging,Explicit,genuinely ambiguous,banter or context-dependent; borderline
-1814,Dodging,Explicit,genuinely ambiguous,banter or context-dependent; borderline
-4631,Dodging,Explicit,genuinely ambiguous,banter or context-dependent; borderline
-1605,Partial/half-answer,Explicit,genuinely ambiguous,answers one part of a multi-part question; borderline
-5943,Partial/half-answer,Explicit,genuinely ambiguous,answers one part of a multi-part question; borderline
-2308,Partial/half-answer,Explicit,model clearly wrong,accepts the invitation but ignores 'by the end of the year' (multi-part question)
-6785,Partial/half-answer,Explicit,genuinely ambiguous,answers one part of a multi-part question; borderline
-5591,Partial/half-answer,Explicit,gold label looks wrong,'Rezultatele sunt foarte bune' answers the satisfaction question
-1269,Partial/half-answer,Explicit,genuinely ambiguous,answers one part of a multi-part question; borderline
-5870,Partial/half-answer,General,genuinely ambiguous,broad answer to part of the question
-7597,Partial/half-answer,General,genuinely ambiguous,broad answer to part of the question
-6303,Partial/half-answer,General,genuinely ambiguous,broad answer to part of the question
-5927,Partial/half-answer,General,genuinely ambiguous,broad answer to part of the question
-5728,Declining to answer,Dodging,genuinely ambiguous,refusal vs dodge boundary
-5419,Declining to answer,Dodging,model clearly wrong,postponement formula 'o să mai vorbim'
-4840,Declining to answer,Dodging,model clearly wrong,'Am mai răspuns la această întrebare'
-6632,Declining to answer,Dodging,model clearly wrong,'Cred că v-am răspuns exhaustiv'
-6543,Declining to answer,Dodging,genuinely ambiguous,refusal vs dodge boundary
-5060,Declining to answer,Dodging,model clearly wrong,'Asta o să aflați atunci când…'
-5567,Declining to answer,Dodging,model clearly wrong,'le vom discuta după alegeri'
-5882,Declining to answer,Dodging,model clearly wrong,'Asta veți afla mâine'
-3083,Clarification,Dodging,model clearly wrong,'Dacă vreți să repetați' asks for a repeat
-901,Clarification,Dodging,model clearly wrong,'Dinainte de '89?' is a genuine clarification request
-7548,Clarification,Dodging,genuinely ambiguous,possibly rhetorical
-4670,Clarification,Dodging,model clearly wrong,'De Parlamentul nostru sau cel european?' is a clarification
-1767,Clarification,Dodging,model clearly wrong,short counter-question that completes the question
-4244,Clarification,Dodging,model clearly wrong,'Dați-mi un exemplu.'
-7397,Claims ignorance,Explicit,model clearly wrong,'Eu nu știu să fi primit'
-5818,Claims ignorance,Explicit,genuinely ambiguous,hedged answer
-2230,Claims ignorance,Explicit,genuinely ambiguous,hedged answer
-2645,Claims ignorance,Explicit,gold label looks wrong,not ignorance: 'nu e treaba mea să mă bag' is Declining/Deflection
-4845,Claims ignorance,Dodging,model clearly wrong,'Nu am urmărit discursul'
-2680,Claims ignorance,Dodging,genuinely ambiguous,hedged non-answer
-3400,Claims ignorance,Dodging,model clearly wrong,'Deci eu nu știu să existe'
-6165,Claims ignorance,Dodging,genuinely ambiguous,hedged non-answer
-2691,Deflection,General,genuinely ambiguous,broad answer that shifts focus; borderline
-5946,Deflection,General,genuinely ambiguous,broad answer that shifts focus; borderline
-5825,Deflection,General,genuinely ambiguous,broad answer that shifts focus; borderline
-7010,Deflection,General,genuinely ambiguous,broad answer that shifts focus; borderline
-6555,Deflection,General,genuinely ambiguous,broad answer that shifts focus; borderline
-7660,Deflection,General,genuinely ambiguous,broad answer that shifts focus; borderline
+batch,datapointID,gold,pred,tag,note
+broad,86,Explicit,General,genuinely ambiguous,Explicit vs General boundary: answer is on-topic but broad
+broad,3738,Explicit,General,genuinely ambiguous,Explicit vs General boundary: answer is on-topic but broad
+broad,3568,Explicit,General,genuinely ambiguous,Explicit vs General boundary: answer is on-topic but broad
+broad,5339,Explicit,General,model clearly wrong,opens with 'Cu siguranță că putem'
+broad,6642,Explicit,General,model clearly wrong,opens with a direct 'Nu cred că…'
+broad,7320,Explicit,General,genuinely ambiguous,Explicit vs General boundary: answer is on-topic but broad
+broad,7481,Explicit,General,genuinely ambiguous,Explicit vs General boundary: answer is on-topic but broad
+broad,4310,Explicit,General,genuinely ambiguous,Explicit vs General boundary: answer is on-topic but broad
+broad,6451,Explicit,General,model clearly wrong,'Fără vaccinare nu putem…' directly answers how
+broad,597,Explicit,General,model clearly wrong,'Lucrurile converg spre război' answers the yes/no
+broad,3335,General,Explicit,genuinely ambiguous,General vs Explicit boundary: on-topic answer without the asked specificity
+broad,2349,General,Explicit,genuinely ambiguous,General vs Explicit boundary: on-topic answer without the asked specificity
+broad,2049,General,Explicit,gold label looks wrong,answer lists concrete reasons; reads as Explicit
+broad,3026,General,Explicit,genuinely ambiguous,General vs Explicit boundary: on-topic answer without the asked specificity
+broad,7244,General,Explicit,model clearly wrong,"'Am discutat cu mai multă lume' is non-committal, not Explicit"
+broad,3859,General,Explicit,genuinely ambiguous,General vs Explicit boundary: on-topic answer without the asked specificity
+broad,40,General,Explicit,gold label looks wrong,narrative but answers the why; reads as Explicit
+broad,3485,General,Explicit,genuinely ambiguous,General vs Explicit boundary: on-topic answer without the asked specificity
+broad,1444,General,Explicit,genuinely ambiguous,General vs Explicit boundary: on-topic answer without the asked specificity
+broad,6229,General,Explicit,genuinely ambiguous,General vs Explicit boundary: on-topic answer without the asked specificity
+broad,7127,Implicit,Explicit,model clearly wrong,'Am o listă… voi decide' implies no name yet; model takes it literally
+broad,819,Implicit,Explicit,gold label looks wrong,'Eu nu fac înțelegeri cu nimeni' is an explicit no
+broad,1157,Implicit,Explicit,genuinely ambiguous,answer implies rather than states; borderline
+broad,7024,Implicit,Explicit,model clearly wrong,'ne permite timpul o localitate' implies none; read literally
+broad,1457,Implicit,Explicit,genuinely ambiguous,answer implies rather than states; borderline
+broad,6244,Implicit,Explicit,model clearly wrong,conditional non-answer read as Explicit
+broad,7306,Implicit,Explicit,genuinely ambiguous,answer implies rather than states; borderline
+broad,5215,Implicit,Explicit,gold label looks wrong,opens with 'Da.'; explicit
+broad,6798,Implicit,Explicit,genuinely ambiguous,answer implies rather than states; borderline
+broad,775,Explicit,Implicit,genuinely ambiguous,short or context-dependent answer; borderline
+broad,358,Explicit,Implicit,gold label looks wrong,'Mi-e greu să fiu optimist sau pesimist' does not answer; not Explicit
+broad,1131,Explicit,Implicit,genuinely ambiguous,short or context-dependent answer; borderline
+broad,6688,Explicit,Implicit,model clearly wrong,short factual confirmation predicted Implicit
+broad,4328,Explicit,Implicit,model clearly wrong,gives the reason directly
+broad,6048,Explicit,Implicit,genuinely ambiguous,short or context-dependent answer; borderline
+broad,4924,Explicit,Implicit,genuinely ambiguous,short or context-dependent answer; borderline
+broad,4889,Dodging,Deflection,genuinely ambiguous,passes the question to another actor; gold is inconsistent between Dodging/Deflection/Declining
+broad,5150,Dodging,Deflection,genuinely ambiguous,passes the question to another actor; gold is inconsistent between Dodging/Deflection/Declining
+broad,5087,Dodging,Deflection,genuinely ambiguous,passes the question to another actor; gold is inconsistent between Dodging/Deflection/Declining
+broad,5351,Dodging,Deflection,genuinely ambiguous,passes the question to another actor; gold is inconsistent between Dodging/Deflection/Declining
+broad,148,Dodging,Deflection,genuinely ambiguous,passes the question to another actor; gold is inconsistent between Dodging/Deflection/Declining
+broad,4179,Dodging,Deflection,genuinely ambiguous,passes the question to another actor; gold is inconsistent between Dodging/Deflection/Declining
+broad,4013,Deflection,Dodging,genuinely ambiguous,passes the question to another actor; gold is inconsistent between Dodging/Deflection/Declining
+broad,7207,Deflection,Dodging,genuinely ambiguous,passes the question to another actor; gold is inconsistent between Dodging/Deflection/Declining
+broad,5358,Deflection,Dodging,genuinely ambiguous,passes the question to another actor; gold is inconsistent between Dodging/Deflection/Declining
+broad,6995,Deflection,Dodging,genuinely ambiguous,passes the question to another actor; gold is inconsistent between Dodging/Deflection/Declining
+broad,5600,Deflection,Dodging,genuinely ambiguous,passes the question to another actor; gold is inconsistent between Dodging/Deflection/Declining
+broad,6498,Deflection,Dodging,genuinely ambiguous,passes the question to another actor; gold is inconsistent between Dodging/Deflection/Declining
+broad,4778,Deflection,Explicit,gold label looks wrong,'Sigur că este o variantă bună' answers; Explicit/Partial
+broad,7651,Deflection,Explicit,model clearly wrong,rejects the premise; fooled by the 'Nu' opener
+broad,3380,Deflection,Explicit,model clearly wrong,'vor fi anunțați la momentul potrivit' is a postponement
+broad,1354,Deflection,Explicit,gold label looks wrong,parsing error: another journalist's question is inside the answer
+broad,6515,Deflection,Explicit,gold label looks wrong,'Nu cred că e o monedă de schimb' answers directly
+broad,7359,Deflection,Explicit,gold label looks wrong,'Evident că nu este un război' answers directly
+broad,4406,Deflection,Explicit,genuinely ambiguous,"addresses part of the topic, shifts focus; borderline"
+broad,4332,Dodging,Explicit,model clearly wrong,'poziția mea este în interesul românilor. Punct.' is a dodge
+broad,2633,Dodging,Explicit,model clearly wrong,answers with an unrelated example
+broad,4702,Dodging,Explicit,gold label looks wrong,'Am știut și știu impactul' answers directly
+broad,3113,Dodging,Explicit,genuinely ambiguous,banter or context-dependent; borderline
+broad,2530,Dodging,Explicit,genuinely ambiguous,banter or context-dependent; borderline
+broad,1814,Dodging,Explicit,genuinely ambiguous,banter or context-dependent; borderline
+broad,4631,Dodging,Explicit,genuinely ambiguous,banter or context-dependent; borderline
+broad,1605,Partial/half-answer,Explicit,genuinely ambiguous,answers one part of a multi-part question; borderline
+broad,5943,Partial/half-answer,Explicit,genuinely ambiguous,answers one part of a multi-part question; borderline
+broad,2308,Partial/half-answer,Explicit,model clearly wrong,accepts the invitation but ignores 'by the end of the year' (multi-part question)
+broad,6785,Partial/half-answer,Explicit,genuinely ambiguous,answers one part of a multi-part question; borderline
+broad,5591,Partial/half-answer,Explicit,gold label looks wrong,'Rezultatele sunt foarte bune' answers the satisfaction question
+broad,1269,Partial/half-answer,Explicit,genuinely ambiguous,answers one part of a multi-part question; borderline
+broad,5870,Partial/half-answer,General,genuinely ambiguous,broad answer to part of the question
+broad,7597,Partial/half-answer,General,genuinely ambiguous,broad answer to part of the question
+broad,6303,Partial/half-answer,General,genuinely ambiguous,broad answer to part of the question
+broad,5927,Partial/half-answer,General,genuinely ambiguous,broad answer to part of the question
+broad,5728,Declining to answer,Dodging,genuinely ambiguous,refusal vs dodge boundary
+broad,5419,Declining to answer,Dodging,model clearly wrong,postponement formula 'o să mai vorbim'
+broad,4840,Declining to answer,Dodging,model clearly wrong,'Am mai răspuns la această întrebare'
+broad,6632,Declining to answer,Dodging,model clearly wrong,'Cred că v-am răspuns exhaustiv'
+broad,6543,Declining to answer,Dodging,genuinely ambiguous,refusal vs dodge boundary
+broad,5060,Declining to answer,Dodging,model clearly wrong,'Asta o să aflați atunci când…'
+broad,5567,Declining to answer,Dodging,model clearly wrong,'le vom discuta după alegeri'
+broad,5882,Declining to answer,Dodging,model clearly wrong,'Asta veți afla mâine'
+broad,3083,Clarification,Dodging,model clearly wrong,'Dacă vreți să repetați' asks for a repeat
+broad,901,Clarification,Dodging,model clearly wrong,'Dinainte de '89?' is a genuine clarification request
+broad,7548,Clarification,Dodging,genuinely ambiguous,possibly rhetorical
+broad,4670,Clarification,Dodging,model clearly wrong,'De Parlamentul nostru sau cel european?' is a clarification
+broad,1767,Clarification,Dodging,model clearly wrong,short counter-question that completes the question
+broad,4244,Clarification,Dodging,model clearly wrong,'Dați-mi un exemplu.'
+broad,7397,Claims ignorance,Explicit,model clearly wrong,'Eu nu știu să fi primit'
+broad,5818,Claims ignorance,Explicit,genuinely ambiguous,hedged answer
+broad,2230,Claims ignorance,Explicit,genuinely ambiguous,hedged answer
+broad,2645,Claims ignorance,Explicit,gold label looks wrong,not ignorance: 'nu e treaba mea să mă bag' is Declining/Deflection
+broad,4845,Claims ignorance,Dodging,model clearly wrong,'Nu am urmărit discursul'
+broad,2680,Claims ignorance,Dodging,genuinely ambiguous,hedged non-answer
+broad,3400,Claims ignorance,Dodging,model clearly wrong,'Deci eu nu știu să existe'
+broad,6165,Claims ignorance,Dodging,genuinely ambiguous,hedged non-answer
+broad,2691,Deflection,General,genuinely ambiguous,broad answer that shifts focus; borderline
+broad,5946,Deflection,General,genuinely ambiguous,broad answer that shifts focus; borderline
+broad,5825,Deflection,General,genuinely ambiguous,broad answer that shifts focus; borderline
+broad,7010,Deflection,General,genuinely ambiguous,broad answer that shifts focus; borderline
+broad,6555,Deflection,General,genuinely ambiguous,broad answer that shifts focus; borderline
+broad,7660,Deflection,General,genuinely ambiguous,broad answer that shifts focus; borderline
+focus,3339,Partial/half-answer,Explicit,genuinely ambiguous,Partial vs Explicit/General boundary: the answer covers some of what was asked
+focus,6157,Partial/half-answer,Implicit,genuinely ambiguous,Partial vs Explicit/General boundary: the answer covers some of what was asked
+focus,6939,Partial/half-answer,Declining to answer,model clearly wrong,"answers the first sub-question (no list yet), skips the second (profile of the judge): Partial"
+focus,1361,Partial/half-answer,Explicit,gold label looks wrong,'Voi pleca când îmi închei mandatul' answers fully; Explicit
+focus,6496,Partial/half-answer,Declining to answer,genuinely ambiguous,Partial vs Explicit/General boundary: the answer covers some of what was asked
+focus,2456,Partial/half-answer,Explicit,genuinely ambiguous,Partial vs Explicit/General boundary: the answer covers some of what was asked
+focus,2538,Partial/half-answer,Explicit,genuinely ambiguous,Partial vs Explicit/General boundary: the answer covers some of what was asked
+focus,7089,Partial/half-answer,Explicit,model clearly wrong,"two questions ('numiți? V-ați hotărât?'), answers only the when: Partial"
+focus,35,Partial/half-answer,Explicit,genuinely ambiguous,Partial vs Explicit/General boundary: the answer covers some of what was asked
+focus,5713,Partial/half-answer,Explicit,genuinely ambiguous,Partial vs Explicit/General boundary: the answer covers some of what was asked
+focus,5917,Partial/half-answer,General,genuinely ambiguous,Partial vs Explicit/General boundary: the answer covers some of what was asked
+focus,6068,Partial/half-answer,General,genuinely ambiguous,Partial vs Explicit/General boundary: the answer covers some of what was asked
+focus,5848,Partial/half-answer,Explicit,model clearly wrong,"two-part question (Exxon sale, TurkStream); clear on one, vague on the other: Partial"
+focus,2333,Partial/half-answer,Explicit,genuinely ambiguous,Partial vs Explicit/General boundary: the answer covers some of what was asked
+focus,2047,Partial/half-answer,Explicit,genuinely ambiguous,Partial vs Explicit/General boundary: the answer covers some of what was asked
+focus,6583,Partial/half-answer,General,genuinely ambiguous,Partial vs Explicit/General boundary: the answer covers some of what was asked
+focus,7190,Partial/half-answer,Explicit,genuinely ambiguous,Partial vs Explicit/General boundary: the answer covers some of what was asked
+focus,6958,Partial/half-answer,Dodging,gold label looks wrong,'n-am apucat să mă uit peste știri' is Claims ignorance
+focus,4334,Partial/half-answer,Implicit,genuinely ambiguous,Partial vs Explicit/General boundary: the answer covers some of what was asked
+focus,5479,Partial/half-answer,Explicit,genuinely ambiguous,Partial vs Explicit/General boundary: the answer covers some of what was asked
+focus,5583,Implicit,General,genuinely ambiguous,Implicit vs General boundary: the stance is implied by a broad answer
+focus,1399,Implicit,General,genuinely ambiguous,Implicit vs General boundary: the stance is implied by a broad answer
+focus,2561,Implicit,Dodging,genuinely ambiguous,Implicit vs General boundary: the stance is implied by a broad answer
+focus,6640,Implicit,General,genuinely ambiguous,Implicit vs General boundary: the stance is implied by a broad answer
+focus,2181,Implicit,General,genuinely ambiguous,Implicit vs General boundary: the stance is implied by a broad answer
+focus,6662,Implicit,Deflection,genuinely ambiguous,Implicit vs General boundary: the stance is implied by a broad answer
+focus,2912,Implicit,Dodging,genuinely ambiguous,Implicit vs General boundary: the stance is implied by a broad answer
+focus,7590,Implicit,General,model clearly wrong,"rhetorical 'cetățenii au dreptate, nu?' implies yes: Implicit"
+focus,6966,Implicit,General,genuinely ambiguous,Implicit vs General boundary: the stance is implied by a broad answer
+focus,6517,Implicit,General,genuinely ambiguous,Implicit vs General boundary: the stance is implied by a broad answer
+focus,5525,Deflection,Explicit,gold label looks wrong,answer duplicated in English and Romanian (transcript artefact); reads as Explicit
+focus,3610,Deflection,Explicit,genuinely ambiguous,"Deflection vs Implicit/Explicit: on-topic, but steers to a related point; no surface cue"
+focus,2201,Deflection,Explicit,genuinely ambiguous,"Deflection vs Implicit/Explicit: on-topic, but steers to a related point; no surface cue"
+focus,4872,Deflection,Implicit,genuinely ambiguous,"Deflection vs Implicit/Explicit: on-topic, but steers to a related point; no surface cue"
+focus,5955,Deflection,Implicit,genuinely ambiguous,"Deflection vs Implicit/Explicit: on-topic, but steers to a related point; no surface cue"
+focus,2408,Deflection,Implicit,genuinely ambiguous,"Deflection vs Implicit/Explicit: on-topic, but steers to a related point; no surface cue"
+focus,2098,Deflection,Implicit,genuinely ambiguous,"Deflection vs Implicit/Explicit: on-topic, but steers to a related point; no surface cue"
+focus,4511,Deflection,Explicit,genuinely ambiguous,"Deflection vs Implicit/Explicit: on-topic, but steers to a related point; no surface cue"
+focus,7228,Deflection,Explicit,genuinely ambiguous,"Deflection vs Implicit/Explicit: on-topic, but steers to a related point; no surface cue"
+focus,4067,Deflection,Implicit,genuinely ambiguous,"Deflection vs Implicit/Explicit: on-topic, but steers to a related point; no surface cue"
