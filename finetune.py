@@ -25,6 +25,7 @@ ap.add_argument("--q_len", type=int, default=80)
 ap.add_argument("--prev_len", type=int, default=0, help="tokens of the previous question to prepend")
 ap.add_argument("--seed", type=int, default=42)
 ap.add_argument("--out", default="runs")
+ap.add_argument("--name", default=None, help="config name used in output files (default: model name)")
 args = ap.parse_args()
 
 torch.manual_seed(args.seed)
@@ -118,7 +119,7 @@ steps = args.epochs * ((len(trn) + args.bs - 1) // args.bs)
 sched = get_linear_schedule_with_warmup(opt, int(0.1 * steps), steps)
 scaler = torch.amp.GradScaler(enabled=dev == "cuda")
 
-tag = f"{args.model.split('/')[-1]}_p{args.prev_len}_f{args.fold}_s{args.seed}"
+tag = f"{args.name or args.model.split('/')[-1]}_p{args.prev_len}_f{args.fold}_s{args.seed}"
 os.makedirs(args.out, exist_ok=True)
 res = {"val_idx": val if val is not None else np.array([], int), "test_ids": te.datapointID.values}
 for ep in range(args.epochs):

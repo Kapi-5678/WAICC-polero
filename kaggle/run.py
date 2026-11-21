@@ -15,11 +15,13 @@ for f in glob.glob(f"{src}/*.py"):
 for f in glob.glob(f"{src}/*.csv"):
     shutil.copy(f, "data/")
 
+# Run 2: the paper's settings (longer training, 512 tokens, batch 8). Run 1's configs are in results/run1/SCORES.md.
+LONG = ["--epochs", "10", "--max_len", "512", "--q_len", "128", "--bs", "8"]
 CONFIGS = [
-    ["--model", "FacebookAI/xlm-roberta-large", "--lr", "1e-5", "--epochs", "5"],
-    ["--model", "dumitrescustefan/bert-base-romanian-cased-v1", "--lr", "3e-5", "--epochs", "4"],
-    ["--model", "dumitrescustefan/bert-base-romanian-cased-v1", "--lr", "3e-5", "--epochs", "4", "--prev_len", "32"],
-    ["--model", "readerbench/RoBERT-large", "--lr", "1e-5", "--epochs", "5"],
+    ["--name", "r2-robert-large-lr1e-5", "--model", "readerbench/RoBERT-large", "--lr", "1e-5", *LONG],
+    ["--name", "r2-xlmr-large-lr1e-5", "--model", "FacebookAI/xlm-roberta-large", "--lr", "1e-5", *LONG],
+    ["--name", "r2-robert-large-lr2e-5", "--model", "readerbench/RoBERT-large", "--lr", "2e-5", *LONG],
+    ["--name", "r2-robert-base-lr2e-5", "--model", "dumitrescustefan/bert-base-romanian-cased-v1", "--lr", "2e-5", *LONG],
 ]
 jobs = [cfg + ["--fold", str(f)] for cfg in CONFIGS for f in range(5)]
 n_gpu = max(torch.cuda.device_count(), 1)
