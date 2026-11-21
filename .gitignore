@@ -12,3 +12,4 @@ runs/
 kaggle_upload/
 kaggle_out/
 analysis/errors.csv
+kaggle_build/

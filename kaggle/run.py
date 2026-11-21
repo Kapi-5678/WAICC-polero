@@ -15,14 +15,25 @@ for f in glob.glob(f"{src}/*.py"):
 for f in glob.glob(f"{src}/*.csv"):
     shutil.copy(f, "data/")
 
-# Run 2: the paper's settings (longer training, 512 tokens, batch 8). Run 1's configs are in results/run1/SCORES.md.
+# Run 1's configs are in results/run1/SCORES.md. RUN picks which list this notebook trains.
 LONG = ["--epochs", "10", "--max_len", "512", "--q_len", "128", "--bs", "8"]
-CONFIGS = [
-    ["--name", "r2-robert-large-lr1e-5", "--model", "readerbench/RoBERT-large", "--lr", "1e-5", *LONG],
-    ["--name", "r2-xlmr-large-lr1e-5", "--model", "FacebookAI/xlm-roberta-large", "--lr", "1e-5", *LONG],
-    ["--name", "r2-robert-large-lr2e-5", "--model", "readerbench/RoBERT-large", "--lr", "2e-5", *LONG],
-    ["--name", "r2-robert-base-lr2e-5", "--model", "dumitrescustefan/bert-base-romanian-cased-v1", "--lr", "2e-5", *LONG],
-]
+ROBERT = ["--model", "readerbench/RoBERT-large", "--lr", "1e-5", *LONG]
+RUNS = {
+    # Run 2: the paper's settings (longer training, 512 tokens, batch 8)
+    "run2": [
+        ["--name", "r2-robert-large-lr1e-5", *ROBERT],
+        ["--name", "r2-xlmr-large-lr1e-5", "--model", "FacebookAI/xlm-roberta-large", "--lr", "1e-5", *LONG],
+        ["--name", "r2-robert-large-lr2e-5", "--model", "readerbench/RoBERT-large", "--lr", "2e-5", *LONG],
+        ["--name", "r2-robert-base-lr2e-5", "--model", "dumitrescustefan/bert-base-romanian-cased-v1", "--lr", "2e-5", *LONG],
+    ],
+    # Run 3: r2-robert-large-lr1e-5 plus task 4's fixes; compare each against it (same folds and seed)
+    "run3": [
+        ["--name", "r3-robert-large-headtail", *ROBERT, "--q_mode", "headtail"],
+        ["--name", "r3-robert-large-headtail-pres", *ROBERT, "--q_mode", "headtail", "--president"],
+    ],
+}
+RUN = "run3"
+CONFIGS = RUNS[RUN]
 jobs = [cfg + ["--fold", str(f)] for cfg in CONFIGS for f in range(5)]
 n_gpu = max(torch.cuda.device_count(), 1)
 print(f"{len(jobs)} jobs on {n_gpu} GPU(s)", flush=True)
