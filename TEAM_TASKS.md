@@ -18,12 +18,22 @@ From the PolERo paper (EMNLP 2026, 2026.emnlp-main.2688), copy the best reported
 
 Tasks 2 and 3 depend on these answers.
 
-## 2. English QEvasion data (if external data is allowed)
+## Who does what (updated 13:30 after task 1)
+- **TreiPaDus:** task 1 done (PR #1). Now on **task 5**, then task 3b if Rares confirms it's allowed.
+- **Colleague 2:** task 4 on arrival.
+- **Tasks 2 and 3 are dropped.** Per `notes/rules.md`, the rules allow neither external data nor LLM APIs.
+- **Never download or open the public PolERo release** (`github.com/gabriel-stefan/polero`). It most likely contains our test labels.
+
+## 2. English QEvasion data (DROPPED: no external data)
 - Load QEvasion from Hugging Face (`ailsntua/QEvasion`) and write `data_prep/qevasion.py`. It outputs `data/qevasion_en.csv` with the columns `interview_question, interview_answer, clarity_label, evasion_label`.
 - The label strings must match exactly the 9 evasion and 3 clarity labels in `common.py`. Print a label count table and list any label that doesn't map.
 - Deliverable: the script plus label counts. Claude then adds an `--extra_en` training flag.
 
-## 3. LLM classifier (if LLM APIs are allowed and someone has an API key)
+## 3b. Open-weight LLM on Kaggle (ONLY if Rares confirms self-hosted open models are allowed)
+- Same as task 3 below, but with an open-weight model running on a Kaggle GPU, with no API calls. In the paper, Qwen3.6-35B-A3B few-shot got the best evasion score (.682 vs .545 for the best encoder). On T4 x2 it needs 4-bit quantisation, so try the smaller Gemma or Qwen variants if that doesn't fit.
+- Score it on the fold-0 sample first, and run test only if it helps. Hard cut-off: no usable sample score by 20:00 means it's dropped.
+
+## 3. LLM classifier via API (DROPPED: no LLM APIs)
 - Write `llm/classify.py`. It prompts an LLM with the taxonomy definitions and boundary rules from the task description, the question and the answer, and asks for exactly one of the 9 evasion labels as JSON. Clarity is derived through the mapping in `common.py`.
 - Evaluate it on the fixed sample: the fold-0 validation rows from `common.folds(train.evasion_label.values)[0][1]` (656 rows). Report the evasion and clarity macro-F1.
 - Try zero-shot first, then few-shot with 2 to 3 examples per class drawn from the other folds only.
@@ -45,14 +55,14 @@ Tasks 2 and 3 depend on these answers.
 |---|---|
 | Sat 13:00 | Task 1 done: rules and reference scores in `notes/` |
 | Sat 13:20 (done) | Kaggle run 1 finished. `submissions/submission_v1.csv` written (milestone 1, safe fallback). Predictions and scores in `results/run1/` for tasks 4 and 5 |
-| Sat 17:00 | Tasks 2 and 3 done: English data converted, LLM scored on the fold-0 sample. PRs open |
+| Sat ~14:00 | Kaggle run 2 starts with the paper's training settings (10+ epochs, 512 tokens, lr 2e-5 for RoBERT-large). Takes about 4 to 5 h |
 | Sat 18:00 | Tasks 4 and 5 done: error-analysis notes, bias-tuning result |
-| Sat 18:30 | Kaggle run 2 starts with the add-ons that look promising (English data, previous-turn context, extra seeds of the best config) |
+| Sat 20:00 | Task 3b cut-off: sample score in, or dropped |
 | Sat ~22:30 | Run 2 finishes. Keep only add-ons that beat run 1's OOF score by at least 0.02. Write `submission_final.csv` (milestone 2) |
 | Sat 23:30 | **Hard stop on experiments.** Final file checked and uploaded by Rares |
 | Sun 09:00 | Deadline. The night is buffer for a rerun if something breaks |
 
 Rules for stopping:
 - An add-on is kept only if it improves the ensemble's OOF macro-F1 (clarity + evasion) by at least 0.02. Smaller gains are within noise: there are only 36 Clarification and 56 Partial examples.
-- Whatever isn't ready by 18:30 misses run 2 and is dropped.
+- Whatever isn't ready by its cut-off is dropped.
 - Don't tune against the leaderboard. With 296 test rows, a few rows swing the score.
