@@ -94,6 +94,12 @@ v1 scored **41.93 / 100** on the leaderboard (296 test rows), against about 53 e
 2. **What leaderboard difference is real?** Using the same draws, score v1 and the run-1 greedy ensemble (or any second ensemble) on the *same* 296 rows, and report the spread of their score *difference*. That gives a rule like "a v2 that is more than X points below v1 on the leaderboard is a real drop, otherwise it's noise". Rares uses that rule to pick the 2 finals tonight.
 - Also report which classes drive the variance: with only a handful of Partial or Clarification rows in a 296-row draw, how often is a class's F1 exactly 0?
 - Deliverable: `ensemble/leaderboard_noise.md` with the two numbers, the decision rule, and the script (`leaderboard_noise.py`). PR before run 2 lands, ~17:00.
+- Follow-up: the visible leaderboard is *partial* (a subset of test), so re-run with `--n 148` and `--n 100` and add the wider bands.
+
+## 9. Before run 2 lands (Colleague 1, ~15:30–17:00)
+1. **Test-set makeup, from metadata only:** compare test vs train by `president`, year (from `date`) and `context`, using only those columns and never the question or answer text. Combine it with the per-president OOF accuracy from `analysis/notes.md` to estimate how much of the leaderboard gap the test mix explains. Add it to `ensemble/leaderboard_noise.md`.
+2. **Independent bug review of the pipeline:** read `finetune.py`, `evaluate.py`, `select_ensemble.py` and `make_submission_py.py`, looking for anything that could make a submission wrong. Examples: test rows misaligned with IDs, the wrong epoch's test probabilities, clarity and evasion mixed up, folds not matching across runs, the `--q_mode` / `--president` flags changing the default behaviour. Report findings in a new issue, each with file:line and how to reproduce it. **Don't edit those files.** Rares decides on fixes. "Found nothing" is a fine result.
+3. At ~17:00, switch to task 7 as soon as `results/run2/` is committed.
 
 ## Schedule (deadline: Sun 22 Nov, 09:00)
 | By | What |
