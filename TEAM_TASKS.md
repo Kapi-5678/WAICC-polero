@@ -35,8 +35,19 @@ Tasks 2 and 3 depend on these answers.
 - Read about 100 errors, focusing on the biggest confusions (Explicit vs Implicit, General vs Partial, Dodging vs Deflection). Tag each one as: gold label looks wrong / genuinely ambiguous / model clearly wrong (and why).
 - Deliverable: `analysis/notes.md` with the 3 to 5 patterns a feature, a rule or more context could fix (for example, answers opening with "Nu știu..." that should be Claims ignorance).
 
-## When we stop
-1. **Milestone 1 (today):** Kaggle 5-fold run, then pick the best config or ensemble on OOF, then make the first real submission.
-2. **Milestone 2 (one round):** add-ons from tasks 2 to 4 (English data, LLM, previous-turn context, fixes from the error analysis). Keep an add-on only if it improves the ensemble's OOF macro-F1 (clarity + evasion) by at least 0.02. Smaller gains are within noise: there are only 36 Clarification and 56 Partial examples. Then make the final submission.
-3. **Then stop**, unless the deadline is still far off and the error analysis points to a specific fix.
+## Schedule (deadline: Sun 22 Nov, 09:00)
+| By | What |
+|---|---|
+| Sat 13:00 | Task 1 done: rules and reference scores in `notes/` |
+| Sat ~15:00 | Kaggle run 1 finishes. Pick the best config or ensemble on OOF and write `submission_v1.csv` (milestone 1, a safe fallback). Export `analysis/errors.csv` |
+| Sat 17:00 | Tasks 2 and 3 done: English data converted, LLM scored on the fold-0 sample. PRs open |
+| Sat 18:00 | Task 4 done: error-analysis notes |
+| Sat 18:30 | Kaggle run 2 starts with the add-ons that look promising (English data, previous-turn context, extra seeds of the best config) |
+| Sat ~22:30 | Run 2 finishes. Keep only add-ons that beat run 1's OOF score by at least 0.02. Write `submission_final.csv` (milestone 2) |
+| Sat 23:30 | **Hard stop on experiments.** Final file checked and uploaded by Rares |
+| Sun 09:00 | Deadline. The night is buffer for a rerun if something breaks |
+
+Rules for stopping:
+- An add-on is kept only if it improves the ensemble's OOF macro-F1 (clarity + evasion) by at least 0.02. Smaller gains are within noise: there are only 36 Clarification and 56 Partial examples.
+- Whatever isn't ready by 18:30 misses run 2 and is dropped.
 - Don't tune against the leaderboard. With 296 test rows, a few rows swing the score.
