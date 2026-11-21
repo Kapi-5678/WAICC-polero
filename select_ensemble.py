@@ -7,8 +7,11 @@
 
 Every complete 5-fold config in the run folders is taken at its best epoch (as evaluate.py
 chooses it) and named <run folder>/<config>. Starting from an empty bag, the config whose
-addition most improves OOF clarity + evasion macro-F1 of the probability average is added,
-repeatedly (a config may be added more than once); selection stops when nothing improves.
+addition most improves the objective of the probability average is added, repeatedly (a config
+may be added more than once); selection stops when nothing improves.
+Objective (default --objective evasion, Rares's rule): maximise OOF evasion macro-F1 while
+clarity stays within --max_clarity_drop (0.01) of the reference, the v1 trio (or, without run 1,
+the best single config). --objective sum maximises clarity + evasion instead.
 Clarity is the best of combined / mapped / head, as in evaluate.py.
 Nested check: the selection is rerun on 4 folds' OOF rows (common.folds) and scored on the 5th.
 """
@@ -21,6 +24,8 @@ from common import load, folds, EVASION_LABELS, CLARITY_LABELS, EVASION_TO_CLARI
 ap = argparse.ArgumentParser()
 ap.add_argument("--runs", nargs="+", default=["results/run1"])
 ap.add_argument("--max_steps", type=int, default=30)
+ap.add_argument("--objective", choices=["evasion", "sum"], default="evasion")
+ap.add_argument("--max_clarity_drop", type=float, default=0.01)
 ap.add_argument("--submission", help="write the selected ensemble's test predictions to this csv")
 args = ap.parse_args()
 
@@ -85,20 +90,38 @@ def blend(w, P):
     return np.tensordot(w / w.sum(), P, axes=1)
 
 
+V1 = [f"run1/{c}" for c in ["xlm-roberta-large_p0", "RoBERT-large_p0", "bert-base-romanian-cased-v1_p0"]]
+W_V1 = np.array([float(n in V1) for n in names]) if set(V1) <= set(names) else None
+
+
+def ref_clarity(rows):
+    """Clarity the selection must stay close to: v1's, else the best single config's."""
+    if W_V1 is not None:
+        return score(blend(W_V1, PE), blend(W_V1, PC), rows)[0]
+    return max(score(PE[k], PC[k], rows)[0] for k in range(K))
+
+
+def objective(cl, ev, ref):
+    if args.objective == "sum":
+        return (cl + ev,)
+    return (cl >= ref - args.max_clarity_drop - 1e-12, ev, cl)  # feasible first, then evasion, then clarity
+
+
 def greedy(rows):
     """Forward selection with replacement on the given rows; returns the count vector."""
-    w, best = np.zeros(K), -1.0
+    ref = ref_clarity(rows)
+    w, best = np.zeros(K), None
     for _ in range(args.max_steps):
         trials = []
         for k in range(K):
             w2 = w.copy()
             w2[k] += 1
             cl, ev, _ = score(blend(w2, PE), blend(w2, PC), rows)
-            trials.append((cl + ev, -w2.sum(), k))
-        s, _, k = max(trials)
-        if s <= best + 1e-12:
+            trials.append((objective(cl, ev, ref), -w2.sum(), k))
+        o, _, k = max(trials)
+        if best is not None and o <= best:  # no strict improvement
             break
-        best, w[k] = s, w[k] + 1
+        best, w[k] = o, w[k] + 1
     return w
 
 
@@ -108,9 +131,8 @@ def row(label, w):
 
 
 table = []
-V1 = [f"run1/{c}" for c in ["xlm-roberta-large_p0", "RoBERT-large_p0", "bert-base-romanian-cased-v1_p0"]]
-if set(V1) <= set(names):
-    table.append(row("v1 trio (submission v1)", np.array([float(n in V1) for n in names])))
+if W_V1 is not None:
+    table.append(row("v1 trio (submission v1)", W_V1))
 table.append(row(f"all {K} configs averaged", np.ones(K)))
 w_sel = greedy(slice(None))
 table.append(row("greedy selection, in-sample", w_sel))
@@ -129,7 +151,8 @@ table.append(("greedy selection, nested", n_cl, n_ev, n_cl + n_ev, "per fold"))
 for k, n in enumerate(names):
     table.append(row(n, np.eye(K)[k]))
 
-print(f"\n{K} configs from {', '.join(args.runs)}. OOF macro-F1 over {len(tr)} train rows:\n")
+goal = ("evasion first, clarity within " + f"{args.max_clarity_drop:g} of " + ("v1" if W_V1 is not None else "the best single config")) if args.objective == "evasion" else "clarity + evasion"
+print(f"\n{K} configs from {', '.join(args.runs)}; selection objective: {goal}. OOF macro-F1 over {len(tr)} train rows:\n")
 print(f"| {'ensemble':52s} | clarity | evasion | sum    | clarity method |")
 print(f"|{'-' * 54}|---------|---------|--------|----------------|")
 for label, cl, ev, s, m in table:
@@ -139,9 +162,14 @@ print(f"\nin-sample selection overstates the nested score by {ins - n_cl - n_ev:
 print("selected bag (in-sample):", {names[k]: int(c) for k, c in enumerate(w_sel) if c})
 for i, b in enumerate(bags):
     print(f"  nested fold {i} bag:", {names[k]: int(c) for k, c in enumerate(b) if c})
-if set(V1) <= set(names):
-    v1 = table[0][3]
-    print(f"nested greedy vs v1: {n_cl + n_ev - v1:+.4f} (sum); the bar for a new submission is +0.02")
+if W_V1 is not None:
+    _, v1_cl, v1_ev, v1_sum, _ = table[0]
+    print(f"nested greedy vs v1: evasion {n_ev - v1_ev:+.4f}, clarity {n_cl - v1_cl:+.4f}, sum {n_cl + n_ev - v1_sum:+.4f}")
+    if args.objective == "evasion":
+        ok = n_ev - v1_ev >= 0.02 and n_cl - v1_cl >= -args.max_clarity_drop
+        print(f"bar for a new submission: nested evasion +0.02 with clarity drop <= {args.max_clarity_drop:g} -> {'MET' if ok else 'not met'}")
+    else:
+        print(f"bar for a new submission: nested sum +0.02 -> {'MET' if n_cl + n_ev - v1_sum >= 0.02 else 'not met'}")
 
 if args.submission:
     tpe, tpc = blend(w_sel, TPE), blend(w_sel, TPC)
