@@ -163,6 +163,7 @@ def main():
         shutil.copy(f, ".")
     for f in glob.glob(f"{src}/*.csv"):
         shutil.copy(f, "data/")
+    sys.path.insert(0, "/kaggle/working")  # merge() imports common.py; sys.path has the script's folder, not the cwd
     me = os.path.abspath(globals().get("__file__") or sys.argv[0])
     if me != os.path.abspath("full_pass.py"):
         shutil.copy(me, "full_pass.py")  # workers re-run this same file
@@ -174,7 +175,7 @@ def main():
     print(f"MODE={MODE}, {n_gpu} GPU(s)", flush=True)
     procs = []
     for g in range(n_gpu):  # fresh processes see the packages pip just installed
-        env = dict(os.environ, CUDA_VISIBLE_DEVICES=str(g))
+        env = dict(os.environ, CUDA_VISIBLE_DEVICES=str(g), PYTHONPATH="/kaggle/working")
         log = open(f"worker{g}.log", "w")
         procs.append((subprocess.Popen([sys.executable, "full_pass.py", "worker", str(g), str(n_gpu), MODE],
                                        stdout=log, stderr=subprocess.STDOUT, env=env), g))
