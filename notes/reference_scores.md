@@ -102,8 +102,8 @@ For run 2, the cheapest things to try are more epochs (10+), max_len 512, and lr
 ## Takeaways for our plan
 - **Backbone:** RoBERT-large beats XLM-R large and Romanian BERT on Romanian in every setup except EN+RO joint training. Our run-1 configs already cover all three.
 - **Predict evasion and map up.** For RoBERT-large on Romanian, mapped clarity beats the direct clarity head (.763 vs .729). That's what our pipeline already does.
-- **English QEvasion (task 2):** joint EN+RO training raised XLM-R evasion by .062 (.508 → .570) and clarity M by .011. It *hurt* RoBERTa-large on Romanian evasion. Expect the gain on XLM-R, not on RoBERT.
-- **LLMs (task 3):** strongest on evasion (+.11 over the best encoder). Few-shot mostly helps the Dodging/Deflection and Implicit/General boundaries. Llama-3.3-70B collapses to Deflection. Reasoning models (GPT-5.4, Qwen3.6, Gemma-4) did best.
+- **English QEvasion (task 2, dropped: no external data):** joint EN+RO training raised XLM-R evasion by .062 (.508 → .570), but it isn't available to us. Of the paper's tricks, that leaves the multi-head pieces: longer training, sliding-window inputs and fold ensembling.
+- **LLMs (task 3, dropped: no LLM APIs; running an open-weight model ourselves is an open question in `rules.md`):** strongest on evasion (+.11 over the best encoder). Few-shot mostly helps the Dodging/Deflection and Implicit/General boundaries. Llama-3.3-70B collapses to Deflection. Reasoning models (GPT-5.4, Qwen3.6, Gemma-4) did best.
 - **Hardest classes:** annotator agreement is lowest for Deflection (κ=.364) and General (κ=.464), and highest for Clarification (κ=1.0) and Claims ignorance (κ=.881). Overall test Fleiss κ is .843 for clarity and .678 for evasion. Treat that as a rough ceiling for evasion.
 
 ## Warning: test labels are public
