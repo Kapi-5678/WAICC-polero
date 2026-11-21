@@ -6,7 +6,7 @@ Every submission lives in its own folder, holding the input (.py, what gets uplo
 """
 import os, sys
 
-SOURCES = ["common.py", "finetune.py", "evaluate.py", "kaggle/run.py"]
+SOURCES = ["common.py", "finetune.py", "evaluate.py", "select_ensemble.py", "kaggle/run.py"]
 TEMPLATE = '''"""PolERo submission: clarity (subtask 1) and evasion (subtask 2) predictions.
 
   python {name}           -> writes submission.csv (592 rows) and prints it
