@@ -5,7 +5,7 @@
 |---|---|---|
 | Team leader | Rares | Kapi-5678 |
 | Colleague 1 | TreiPaDus | TreiPaDus |
-| Colleague 2 | not here yet | (invite when they arrive) |
+| Colleague 2 | notneagu | notneagu |
 
 Rares merges every PR and makes every competition submission. Questions go in a GitHub issue. Rares answers them.
 
@@ -100,6 +100,16 @@ v1 scored **41.93 / 100** on the leaderboard (296 test rows), against about 53 e
 1. **Test-set makeup, from metadata only:** compare test vs train by `president`, year (from `date`) and `context`, using only those columns and never the question or answer text. Combine it with the per-president OOF accuracy from `analysis/notes.md` to estimate how much of the leaderboard gap the test mix explains. Add it to `ensemble/leaderboard_noise.md`.
 2. **Independent bug review of the pipeline:** read `finetune.py`, `evaluate.py`, `select_ensemble.py` and `make_submission_py.py`, looking for anything that could make a submission wrong. Examples: test rows misaligned with IDs, the wrong epoch's test probabilities, clarity and evasion mixed up, folds not matching across runs, the `--q_mode` / `--president` flags changing the default behaviour. Report findings in a new issue, each with file:line and how to reproduce it. **Don't edit those files.** Rares decides on fixes. "Found nothing" is a fine result.
 3. At ~17:00, switch to task 7 as soon as `results/run2/` is committed.
+
+## 10. Run 4 on a second Kaggle GPU (Colleague 2, now, ~2.5 h unattended)
+Rares' Kaggle account runs one GPU session at a time (run 2, then run 3), so run 4 goes on Colleague 2's own account.
+1. On kaggle.com: verify your phone number (Settings > Phone verification). Without it there is no GPU and no internet.
+2. Send Rares your Kaggle username in issue #2. He shares the private dataset `lucazanotti/polero-data` with you.
+3. Create a new notebook. **Add Input** > the `polero-data` dataset. Session options: **Accelerator GPU T4 x2**, **Internet on**.
+4. Paste all of `kaggle/run.py` from main (it already says `RUN = "run4"`) into one code cell. Click **Save Version** > **Save & Run All (Commit)**. Close the tab: it runs on its own, about 2.5 hours, 10 jobs.
+5. When the version is done, open it > **Output**, and download `runs/` (10 `.npz` files plus logs). Check each log line says `ok`.
+6. On branch `notneagu/run4`, put the `.npz` files in `results/run4/` and the notebook log as `results/run4/kaggle.log`. Open a PR. Don't commit anything from `/kaggle/input` or any CSV.
+- If anything fails (a job says FAILED, out of memory, no GPU), post the log line in issue #2 instead of retrying blindly.
 
 ## Schedule (deadline: Sun 22 Nov, 09:00)
 | By | What |

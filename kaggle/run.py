@@ -31,8 +31,13 @@ RUNS = {
         ["--name", "r3-robert-large-headtail", *ROBERT, "--q_mode", "headtail"],
         ["--name", "r3-robert-large-headtail-pres", *ROBERT, "--q_mode", "headtail", "--president"],
     ],
+    # Run 4 (Colleague 2's Kaggle account): run 2's two large lr1e-5 configs with a second seed, for the ensemble
+    "run4": [
+        ["--name", "r4-xlmr-large-lr1e-5-s43", "--model", "FacebookAI/xlm-roberta-large", "--lr", "1e-5", *LONG, "--seed", "43"],
+        ["--name", "r4-robert-large-lr1e-5-s43", *ROBERT, "--seed", "43"],
+    ],
 }
-RUN = "run3"
+RUN = "run4"
 CONFIGS = RUNS[RUN]
 jobs = [cfg + ["--fold", str(f)] for cfg in CONFIGS for f in range(5)]
 n_gpu = max(torch.cuda.device_count(), 1)
