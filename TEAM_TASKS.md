@@ -30,18 +30,23 @@ Tasks 2 and 3 depend on these answers.
 - Cap the spend at EUR 10 until results justify more. Run it on test only after it beats or usefully complements the encoder on the sample.
 - Output: `runs_llm/<name>.csv` with `datapointID, evasion_label`.
 
-## 4. Error analysis (native speaker, after the Kaggle run, ~3 h from now)
-- Claude will export `analysis/errors.csv` with the question, answer, gold label and predicted label for the OOF errors.
+## 4. Error analysis (native speaker, after Kaggle run 1)
+- Write `analysis/export_errors.py`. It loads the OOF probabilities from the run-1 `.npz` files in `runs/` (see `evaluate.py` for how they're assembled) and writes `analysis/errors.csv` with the question, answer, gold label and predicted label for the OOF errors, plus a 9x9 confusion matrix.
 - Read about 100 errors, focusing on the biggest confusions (Explicit vs Implicit, General vs Partial, Dodging vs Deflection). Tag each one as: gold label looks wrong / genuinely ambiguous / model clearly wrong (and why).
 - Deliverable: `analysis/notes.md` with the 3 to 5 patterns a feature, a rule or more context could fix (for example, answers opening with "Nu știu..." that should be Claims ignorance).
+
+## 5. Class-bias tuning for macro-F1 (after Kaggle run 1, anyone comfortable with numpy)
+- Argmax favours the big classes, while macro-F1 rewards the small ones. Write `tune_bias.py`. It learns one additive log-probability offset per class on the OOF ensemble probabilities (coordinate ascent on macro-F1), separately for evasion (9) and clarity (3).
+- To avoid fooling ourselves, fit the offsets on 4 folds and score on the 5th, rotating through all 5. Report the gain over plain argmax.
+- If the gain is at least 0.02, the offsets get applied in the final submission.
 
 ## Schedule (deadline: Sun 22 Nov, 09:00)
 | By | What |
 |---|---|
 | Sat 13:00 | Task 1 done: rules and reference scores in `notes/` |
-| Sat ~15:00 | Kaggle run 1 finishes. Pick the best config or ensemble on OOF and write `submission_v1.csv` (milestone 1, a safe fallback). Export `analysis/errors.csv` |
+| Sat ~15:00 | Kaggle run 1 finishes. Pick the best config or ensemble on OOF and write `submission_v1.csv` (milestone 1, a safe fallback). Upload the run-1 `runs/` folder for tasks 4 and 5 |
 | Sat 17:00 | Tasks 2 and 3 done: English data converted, LLM scored on the fold-0 sample. PRs open |
-| Sat 18:00 | Task 4 done: error-analysis notes |
+| Sat 18:00 | Tasks 4 and 5 done: error-analysis notes, bias-tuning result |
 | Sat 18:30 | Kaggle run 2 starts with the add-ons that look promising (English data, previous-turn context, extra seeds of the best config) |
 | Sat ~22:30 | Run 2 finishes. Keep only add-ons that beat run 1's OOF score by at least 0.02. Write `submission_final.csv` (milestone 2) |
 | Sat 23:30 | **Hard stop on experiments.** Final file checked and uploaded by Rares |
