@@ -78,6 +78,27 @@ EN2RO / RO2EN = training data machine-translated with NLLB-200-distilled-600M.
 
 Seed std is about ±.02 on evasion, which supports our 0.02 keep threshold.
 
+## Our run 1 compared with the paper
+Run 1 (`results/run1/SCORES.md`, 5-fold OOF on train) against the paper (test set). These aren't strictly comparable, but the gap is big:
+
+| | Our clarity | Paper clarity M | Our evasion | Paper evasion E |
+|---|---|---|---|---|
+| RoBERT-large | .631 | .701 (SH) / .763 (MH) | .361 | .504 (SH) / .545 (MH) |
+| XLM-R large | .672 | .686 (SH) / .706 (MH) | .376 | .365 (SH) / .508 (MH) |
+| Run-1 ensemble | .663 | — | .395 | — |
+
+Our RoBERT-large sits far below the paper's *single-head* RoBERT-large (−.07 clarity, −.14 evasion), while XLM-R roughly matches. The paper's settings (Appendix D/E) differ from run 1 in ways that probably explain much of the gap:
+
+| | Paper, multi-head | Paper, single-head | Our run 1 (`finetune.py`) |
+|---|---|---|---|
+| Epochs | 20, early stopping on combined val macro-F1, patience 5 | up to 20, best checkpoint | 4–5, and the large models were still improving |
+| LR | 1e-5 | 2e-5 RoBERT-large / RO-BERT base, 1e-5 XLM-R | 1e-5 RoBERT-large, 3e-5 RO-BERT base |
+| Input length | full Q+A, 512-token windows, stride 256, max-pooled | 512, truncated | 320 tokens, keeping the answer's start and end (`--max_len 320`) |
+| Batch size | 8 | 64 | 16 |
+| CV | 7-fold, stratified by clarity | 85/15 split | 5-fold, stratified by evasion |
+
+For run 2, the cheapest things to try are more epochs (10+), max_len 512, and lr 2e-5 for RoBERT-large.
+
 ## Takeaways for our plan
 - **Backbone:** RoBERT-large beats XLM-R large and Romanian BERT on Romanian in every setup except EN+RO joint training. Our run-1 configs already cover all three.
 - **Predict evasion and map up.** For RoBERT-large on Romanian, mapped clarity beats the direct clarity head (.763 vs .729). That's what our pipeline already does.
