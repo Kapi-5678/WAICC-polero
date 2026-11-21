@@ -103,7 +103,7 @@ v1's evasion F1 per class across the draws. "sd in points" is the class's share 
 | 148 | 52.6 ± 4.7 | 44.7 – 60.2 | **0.015** | 0.67 |
 | 100 | 52.2 ± 5.9 | 42.2 – 61.7 | **0.046** | 0.67 |
 
-The subset makes the 50/50 formula less implausible, but on a half-size subset it's still a 1-in-70 result, and 1-in-22 on 100 rows. Evasion-only stays an ordinary draw at every size. Combining the subset with the test set's actual mix (section 5) changes these figures by less than 0.01.
+The subset makes the 50/50 formula less implausible, but on a half-size subset it's still a 1-in-70 result, and 1-in-22 on 100 rows. Evasion-only stays an ordinary draw at every size. Rows drawn to match the test's metadata mix (section 5) instead of the class mix give P(≤ 41.93) of 0.03–0.04 at 148 rows and 0.07–0.08 at 100. Those draws don't fix the class quota, so they're noisier, and either way it's unlikely but not rare.
 
 ### Decision rule for the partial leaderboard (use this one)
 The bands are about 2 sd of the paired v2 − v1 difference, rounded up, from the same draws.
