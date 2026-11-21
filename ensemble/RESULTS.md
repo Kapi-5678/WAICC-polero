@@ -86,7 +86,7 @@ To write it:
 | RoBERT-large | 1.2 / 1.5 | | RoBERT-large lr 1e-5 | 3.0 / 3.7 |
 | RO-BERT base | 1.4 / 1.8 | | RO-BERT base | 3.5 / 4.8 |
 
-Each cell is clarity / evasion, OOF over 3,278 rows. Fixed sets need no nesting; greedy is nested. **Δ is against the submitted v1** (plain average): 0.6626 / 0.3950.
+In the table below, each cell is clarity / evasion, OOF over 3,278 rows. Fixed sets need no nesting; greedy is nested. **Δ is against the submitted v1** (plain average): 0.6626 / 0.3950.
 
 | set | plain | geo | temp |
 |---|---|---|---|
