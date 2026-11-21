@@ -14,8 +14,11 @@ clarity stays within --max_clarity_drop (0.01) of the reference, the v1 trio (or
 the best single config). --objective sum maximises clarity + evasion instead.
 Clarity is the best of combined / mapped / head, as in evaluate.py.
 Nested check: the selection is rerun on 4 folds' OOF rows (common.folds) and scored on the 5th.
+Fixed recipes (--recipe, default RECIPES below) average every config whose name matches a pattern,
+with equal weights and no selection, so their OOF score needs no nesting. They are defined before
+runs 3-6 land; matching configs from later runs join automatically.
 """
-import argparse, glob, os, re
+import argparse, fnmatch, glob, os, re
 from collections import Counter, defaultdict
 import numpy as np
 import pandas as pd
@@ -27,6 +30,10 @@ ap.add_argument("--max_steps", type=int, default=30)
 ap.add_argument("--objective", choices=["evasion", "sum"], default="evasion")
 ap.add_argument("--max_clarity_drop", type=float, default=0.01)
 ap.add_argument("--submission", help="write the selected ensemble's test predictions to this csv")
+ap.add_argument("--recipe", action="append", metavar="LABEL=PATTERN[,PATTERN]",
+                help="fixed equal-weight average of the configs matching the patterns (repeatable); "
+                     "default: the RECIPES below")
+ap.add_argument("--submit_recipe", metavar="LABEL", help="with --submission: write this recipe's predictions instead of the greedy bag")
 args = ap.parse_args()
 
 tr, te = load()
@@ -130,9 +137,27 @@ def row(label, w):
     return (label, cl, ev, cl + ev, m)
 
 
+# fixed recipes, defined before runs 3-6 (large = XLM-R large / RoBERT-large at lr 1e-5, any seed or run)
+LARGE = ["run1/xlm-roberta-large_p0", "run1/RoBERT-large_p0", "*/r[0-9]-xlmr-large-lr1e-5*", "*/r[0-9]-robert-large-lr1e-5*"]
+RECIPES = {
+    "R1 all large lr1e-5 models": LARGE,
+    "R2 R1 + v1's RO-BERT base": LARGE + ["run1/bert-base-romanian-cased-v1_p0"],
+    "R3 R1 + run-3 headtail variants": LARGE + ["*/r[0-9]-robert-large-headtail*"],
+    "R4 all XLM-R large models": ["run1/xlm-roberta-large_p0", "*/r[0-9]-xlmr-large-lr1e-5*"],
+}
+if args.recipe:
+    RECIPES = {r.split("=", 1)[0]: r.split("=", 1)[1].split(",") for r in args.recipe}
+W_REC = {}
+for label, pats in RECIPES.items():
+    w = np.array([float(any(fnmatch.fnmatch(n, p) for p in pats)) for n in names])
+    if w.sum():
+        W_REC[label] = w
+
 table = []
 if W_V1 is not None:
     table.append(row("v1 trio (submission v1)", W_V1))
+for label, w in W_REC.items():
+    table.append(row(f"{label} ({int(w.sum())})", w))
 table.append(row(f"all {K} configs averaged", np.ones(K)))
 w_sel = greedy(slice(None))
 table.append(row("greedy selection, in-sample", w_sel))
@@ -171,9 +196,17 @@ if W_V1 is not None:
     else:
         print(f"bar for a new submission: nested sum +0.02 -> {'MET' if n_cl + n_ev - v1_sum >= 0.02 else 'not met'}")
 
+if W_REC:
+    print("\nfixed recipes (no selection, so OOF needs no nesting):")
+    for label, w in W_REC.items():
+        cl, ev, _ = score(blend(w, PE), blend(w, PC))
+        vs = f"  vs v1: evasion {ev - v1_ev:+.4f}, clarity {cl - v1_cl:+.4f}" if W_V1 is not None else ""
+        print(f"  {label}: {[n for n, x in zip(names, w) if x]}{vs}")
+
 if args.submission:
-    tpe, tpc = blend(w_sel, TPE), blend(w_sel, TPC)
-    m = score(blend(w_sel, PE), blend(w_sel, PC))[2]
+    w_out = W_REC[args.submit_recipe] if args.submit_recipe else w_sel
+    tpe, tpc = blend(w_out, TPE), blend(w_out, TPC)
+    m = score(blend(w_out, PE), blend(w_out, PC))[2]
     clar = dict(zip(te.datapointID, [CLARITY_LABELS[j] for j in clarity_pred(tpe, tpc, m)]))
     evas = dict(zip(te.datapointID, [EVASION_LABELS[j] for j in tpe.argmax(1)]))
     sub = pd.read_csv("data/sample_output.csv")
