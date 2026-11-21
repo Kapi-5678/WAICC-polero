@@ -52,8 +52,14 @@ RUNS = {
         ["--name", "r8-xlmr-large-cl1", "--model", "FacebookAI/xlm-roberta-large", "--lr", "1e-5", *LONG, "--cl_weight", "1.0"],
         ["--name", "r8-robert-large-cl1", *ROBERT, "--cl_weight", "1.0"],
     ],
+    # Run 8b (our Kaggle, ~00:00): run 8 again (its results are stuck in Neagu's account), 7 epochs to save an hour.
+    # Every large model peaked around epoch 7 of 10. The later --epochs overrides LONG's.
+    "run8b": [
+        ["--name", "r8b-xlmr-large-cl1-e7", "--model", "FacebookAI/xlm-roberta-large", "--lr", "1e-5", *LONG, "--cl_weight", "1.0", "--epochs", "7"],
+        ["--name", "r8b-robert-large-cl1-e7", *ROBERT, "--cl_weight", "1.0", "--epochs", "7"],
+    ],
 }
-RUN = "run8"
+RUN = "run8b"
 CONFIGS = RUNS[RUN]
 jobs = [cfg + ["--fold", str(f)] for cfg in CONFIGS for f in range(5)]
 n_gpu = max(torch.cuda.device_count(), 1)
