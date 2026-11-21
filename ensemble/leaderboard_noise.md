@@ -1,5 +1,10 @@
 # Task 8: how much can the leaderboard tell us?
 
+> **Correction (21 Nov, after Rares's v3 probe, `submissions/LEADERBOARD.md`):** the leaderboard score **is** the 50/50 formula. v1's partial score is 56.33. **The 41.93 used below was the platform's rescaled grade, not the score**, so the "evasion only" explanation in sections 1, 1b and 5 is wrong. On the real score, v1's 56.33 sits inside the 50/50 band (about 46–59 for a partial board), and the test set shows no sign of differing from train.
+>
+> **What still holds:** the noise bands and the decision rule. **Use the 50/50 columns:** for a v2 that agrees about 90% with v1, a gap must exceed **±5 points (148-row subset) or ±7 (100 rows)** to be real. The per-class variance, the `--compare` agreement check and the test-mix numbers also stand.
+
+
 All numbers come from the run-1 OOF predictions only (`results/run1/`); test data isn't touched. The only exception is section 5, which reads the test set's `president`, `date` and `context` metadata, never its text.
 
 > **Update (task 9):** the visible leaderboard is scored on a fixed **subset** of the 296 test rows. Full scores come only after the deadline, and only for the 2 finals. The subset size isn't published, so sections 4 and 5 redo the numbers for 148 rows (half) and 100 rows (pessimistic). **Use the decision table in section 4, not the 296-row one below.**
