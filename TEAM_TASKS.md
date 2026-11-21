@@ -70,6 +70,24 @@ Tasks 2 and 3 depend on these answers.
 - To avoid fooling ourselves, fit the offsets on 4 folds and score on the 5th, rotating through all 5. Report the gain over plain argmax.
 - If the gain is at least 0.02, the offsets get applied in the final submission.
 
+## 7. Ensemble selection and the milestone-2 submission (Colleague 1, now until the end)
+This is the final model choice, and it's Colleague 1's to own. Claude handles the Kaggle runs and commits their outputs to `results/runN/`. Rares reviews and picks the 2 finals.
+
+**Now, until run 2 lands (~17:15): build `select_ensemble.py`**
+- Inputs: one or more run folders (`--runs results/run1 results/run2 ...`). Take every complete 5-fold config at its best epoch, chosen as in `evaluate.py`. Config names need the run as a prefix (`run1/...`), as `stack.py` already does.
+- Greedy forward selection with replacement (Caruana et al.): start empty, then repeatedly add the config whose inclusion most improves OOF clarity + evasion macro-F1 of the probability average. Stop when nothing improves. Clarity is chosen as in `evaluate.py` (best of combined / mapped / head).
+- Honesty check: also run the selection nested (select on 4 folds' OOF rows, score on the 5th). Report how much the in-sample score overstates it.
+- Print a comparison table: v1 trio, all configs averaged, greedy selection (in-sample and nested), and each single config.
+- `--submission submissions/vN/submission_vN.csv` writes the chosen ensemble's test predictions in the same row order as `data/sample_output.csv`, with the same checks as `evaluate.py`. Then `python make_submission_py.py submissions/vN/submission_vN.csv` writes the matching input `.py`.
+- Test it on `results/run1` now. It should reproduce or beat v1's 0.663 / 0.395.
+
+**When run 2 lands in `results/run2/` (~17:15)**
+1. Write `results/run2/SCORES.md`, the per-config table in the same format as `results/run1/SCORES.md`.
+2. Run `select_ensemble.py --runs results/run1 results/run2`. Also re-run `stack.py` on the same set, as task 6 says.
+3. If the best ensemble beats v1 by at least 0.02 (clarity + evasion, nested), produce `submissions/v2/` (csv + py) and open a PR. If not, say so: v1 stays the final.
+
+**When run 3 lands in `results/run3/` (~19:30):** repeat with all three runs, which produces `submissions/v3/` if it wins.
+
 ## Schedule (deadline: Sun 22 Nov, 09:00)
 | By | What |
 |---|---|

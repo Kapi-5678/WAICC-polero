@@ -1,0 +1,27 @@
+{
+ "use": [
+  "xlm-roberta-large_p0",
+  "RoBERT-large_p0",
+  "bert-base-romanian-cased-v1_p0"
+ ],
+ "evasion": {
+  "Explicit": -0.111,
+  "Implicit": -0.111,
+  "General": 0.089,
+  "Partial/half-answer": 0.689,
+  "Dodging": -0.311,
+  "Deflection": -0.011,
+  "Declining to answer": -0.211,
+  "Claims ignorance": -0.011,
+  "Clarification": -0.011
+ },
+ "clarity": {
+  "Clear Reply": 0.267,
+  "Ambivalent": -0.133,
+  "Clear Non-Reply": -0.133
+ },
+ "nested_gain": {
+  "evasion": 0.0055,
+  "clarity": -0.011
+ }
+}
