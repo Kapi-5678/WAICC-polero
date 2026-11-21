@@ -195,6 +195,10 @@ RECIPES = {
     "T2 run-2 trio": ["run2/r2-xlmr-large-lr1e-5_p0", "run2/r2-robert-large-lr1e-5_p0", "run2/r2-robert-base-lr2e-5_p0"],
     "T12 v1 trio + run-2 trio": ["run1/xlm-roberta-large_p0", "run1/RoBERT-large_p0", "run1/bert-base-romanian-cased-v1_p0",
                                  "run2/r2-xlmr-large-lr1e-5_p0", "run2/r2-robert-large-lr1e-5_p0", "run2/r2-robert-base-lr2e-5_p0"],
+    # pre-set before runs 4-6 land (21 Nov ~18:00): v2's six models plus every later large lr 1e-5 seed; use with --combine geo
+    "V4 T12 + new large seeds": ["run1/xlm-roberta-large_p0", "run1/RoBERT-large_p0", "run1/bert-base-romanian-cased-v1_p0",
+                                 "run2/r2-xlmr-large-lr1e-5_p0", "run2/r2-robert-large-lr1e-5_p0", "run2/r2-robert-base-lr2e-5_p0",
+                                 "*/r[4-9]-xlmr-large-lr1e-5*", "*/r[4-9]-robert-large-lr1e-5*"],
 }
 if args.recipe:
     RECIPES = {r.split("=", 1)[0]: r.split("=", 1)[1].split(",") for r in args.recipe}
