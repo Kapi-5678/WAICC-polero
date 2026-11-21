@@ -22,6 +22,18 @@ Out-of-fold macro-F1 over all 3,278 train rows.
 - **Verdict for run 1:** no new submission; v1 stays.
 - **Caveat:** v1 itself was picked by looking at run-1 out-of-fold scores (the p32 config was dropped), so it's not a nested number either. The comparison slightly favours v1.
 
+## Run 1, evasion-first objective (Rares's rule, now the default)
+`select_ensemble.py` now maximises OOF **evasion** macro-F1 while clarity stays within 0.01 of v1 (`--objective evasion --max_clarity_drop 0.01`). `--objective sum` gives the table above.
+
+| ensemble | clarity | evasion | sum |
+|---|---|---|---|
+| v1 trio | 0.6626 | 0.3950 | 1.0576 |
+| greedy, in-sample (XLM-R ×2 + RoBERT + RO-BERT) | 0.6688 | 0.4041 | 1.0729 |
+| **greedy, nested** | 0.6490 | **0.3806** | 1.0296 |
+
+- **Nested against v1:** evasion −0.014, clarity −0.013. The bar (nested evasion +0.02 with clarity drop ≤ 0.01) is **not met**, so v1 stays.
+- **It overfits more than the sum objective:** in-sample overstates the nested score by +0.043, against +0.027. Evasion macro-F1 depends on a handful of rare-class rows, so the 5 nested folds pick 4 different bags.
+
 ## Run 2
 To be filled when `results/run2/` lands:
 ```
