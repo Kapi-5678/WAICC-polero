@@ -11,3 +11,4 @@ models/
 runs/
 kaggle_upload/
 kaggle_out/
+analysis/errors.csv

@@ -8,7 +8,7 @@ Out-of-fold macro-F1 over all 3,278 train rows, best epoch per config.
 | bert-base-romanian-cased-v1, lr 3e-5 | 4 of 4 | 0.635 | 0.367 |
 | RoBERT-large, lr 1e-5 | 5 of 5 | 0.631 | 0.361 |
 | bert-base-romanian + previous question (32 tok) | 4 of 4 | 0.615 | 0.338 |
-| **Ensemble: XLM-R L + RoBERT-L + RO-BERT base** (`submission_v1.csv`) | | **0.663** | **0.395** |
+| **Ensemble: XLM-R L + RoBERT-L + RO-BERT base** (`submissions/v1/`) | | **0.663** | **0.395** |
 
 For reference, TF-IDF + LR scores 0.49 clarity / 0.24 evasion.
 

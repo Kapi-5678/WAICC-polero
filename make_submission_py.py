@@ -1,8 +1,10 @@
 """Bundle a submission CSV and the pipeline source into one standalone .py file.
 
-  python make_submission_py.py submissions/submission_v1.csv submissions/polero_v1.py
+Every submission lives in its own folder, holding the input (.py, what gets uploaded) and its output (.csv):
+  python evaluate.py <runs> --use ... --out submissions/v2/submission_v2.csv
+  python make_submission_py.py submissions/v2/submission_v2.csv   # writes submissions/v2/polero_v2.py
 """
-import sys
+import os, sys
 
 SOURCES = ["common.py", "finetune.py", "evaluate.py", "kaggle/run.py"]
 TEMPLATE = '''"""PolERo submission: clarity (subtask 1) and evasion (subtask 2) predictions.
@@ -38,7 +40,10 @@ def literal(text, what):
     return "r\'\'\'" + text + "\'\'\'"
 
 
-csv_path, out = sys.argv[1], sys.argv[2]
+csv_path = sys.argv[1]
+base = os.path.basename(csv_path)
+assert base.startswith("submission_") and base.endswith(".csv"), "expected submissions/<vN>/submission_<vN>.csv"
+out = os.path.join(os.path.dirname(csv_path), base.replace("submission_", "polero_").replace(".csv", ".py"))
 csv = open(csv_path, encoding="utf-8").read().replace("\r\n", "\n")
 assert csv.splitlines()[0] == "subtaskID,datapointID,answer" and len(csv.strip().splitlines()) == 593
 srcs = ",\n".join(f"    {p!r}: {literal(open(p, encoding='utf-8').read(), p)}" for p in SOURCES)
