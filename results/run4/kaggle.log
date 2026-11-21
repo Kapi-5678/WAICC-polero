@@ -1,0 +1,47 @@
+[{"stream_name":"stdout","time":18.385264299,"data":"10 jobs on 2 GPU(s)\n"}
+,{"stream_name":"stdout","time":1698.410781518,"data":"[28 min] r4-xlmr-large-lr1e-5-s43_xlm-roberta-large_1e-5_10_512_128_8_43_0: ok in 28.0 min\n"}
+,{"stream_name":"stdout","time":1728.412911051,"data":"[29 min] r4-xlmr-large-lr1e-5-s43_xlm-roberta-large_1e-5_10_512_128_8_43_1: ok in 28.5 min\n"}
+,{"stream_name":"stdout","time":3318.436347926,"data":"[55 min] r4-xlmr-large-lr1e-5-s43_xlm-roberta-large_1e-5_10_512_128_8_43_2: ok in 26.8 min\n"}
+,{"stream_name":"stdout","time":3408.439154394,"data":"[57 min] r4-xlmr-large-lr1e-5-s43_xlm-roberta-large_1e-5_10_512_128_8_43_3: ok in 27.8 min\n"}
+,{"stream_name":"stdout","time":4798.459856337,"data":"[80 min] r4-robert-large-lr1e-5-s43_RoBERT-large_1e-5_10_512_128_8_43_0: ok in 23.0 min\n"}
+,{"stream_name":"stdout","time":4948.463303832,"data":"[82 min] r4-xlmr-large-lr1e-5-s43_xlm-roberta-large_1e-5_10_512_128_8_43_4: ok in 27.0 min\n"}
+,{"stream_name":"stdout","time":6168.482513969,"data":"[103 min] r4-robert-large-lr1e-5-s43_RoBERT-large_1e-5_10_512_128_8_43_1: ok in 22.7 min\n"}
+,{"stream_name":"stdout","time":6268.484970924,"data":"[104 min] r4-robert-large-lr1e-5-s43_RoBERT-large_1e-5_10_512_128_8_43_2: ok in 21.8 min\n"}
+,{"stream_name":"stdout","time":7548.505044761,"data":"[126 min] r4-robert-large-lr1e-5-s43_RoBERT-large_1e-5_10_512_128_8_43_3: ok in 22.8 min\n"}
+,{"stream_name":"stdout","time":7588.505768295,"data":"[126 min] r4-robert-large-lr1e-5-s43_RoBERT-large_1e-5_10_512_128_8_43_4: ok in 21.8 min\n"}
+,{"stream_name":"stdout","time":7599.98459899,"data":"r4-robert-large-lr1e-5-s43_p0 epoch 0: clar_combined=0.2752 clar_mapped=0.3490 clar_head=0.3858 evasion=0.1352\n"}
+,{"stream_name":"stdout","time":7599.984658505,"data":"r4-robert-large-lr1e-5-s43_p0 epoch 1: clar_combined=0.6080 clar_mapped=0.5861 clar_head=0.6087 evasion=0.2947\n"}
+,{"stream_name":"stdout","time":7599.984665957,"data":"r4-robert-large-lr1e-5-s43_p0 epoch 2: clar_combined=0.6319 clar_mapped=0.6288 clar_head=0.6313 evasion=0.3306\n"}
+,{"stream_name":"stdout","time":7599.984671566,"data":"r4-robert-large-lr1e-5-s43_p0 epoch 3: clar_combined=0.6398 clar_mapped=0.6407 clar_head=0.6419 evasion=0.3541\n"}
+,{"stream_name":"stdout","time":7599.98467635,"data":"r4-robert-large-lr1e-5-s43_p0 epoch 4: clar_combined=0.6476 clar_mapped=0.6453 clar_head=0.6416 evasion=0.3639\n"}
+,{"stream_name":"stdout","time":7599.984680967,"data":"r4-robert-large-lr1e-5-s43_p0 epoch 5: clar_combined=0.6552 clar_mapped=0.6571 clar_head=0.6531 evasion=0.3756\n"}
+,{"stream_name":"stdout","time":7599.984685289,"data":"r4-robert-large-lr1e-5-s43_p0 epoch 6: clar_combined=0.6508 clar_mapped=0.6533 clar_head=0.6477 evasion=0.3620\n"}
+,{"stream_name":"stdout","time":7599.984689619,"data":"r4-robert-large-lr1e-5-s43_p0 epoch 7: clar_combined=0.6509 clar_mapped=0.6546 clar_head=0.6495 evasion=0.3684\n"}
+,{"stream_name":"stdout","time":7599.984694582,"data":"r4-robert-large-lr1e-5-s43_p0 epoch 8: clar_combined=0.6455 clar_mapped=0.6485 clar_head=0.6433 evasion=0.3658\n"}
+,{"stream_name":"stdout","time":7599.984699647,"data":"r4-robert-large-lr1e-5-s43_p0 epoch 9: clar_combined=0.6523 clar_mapped=0.6499 clar_head=0.6452 evasion=0.3626\n"}
+,{"stream_name":"stdout","time":7599.984703962,"data":"r4-robert-large-lr1e-5-s43_p0: best epoch 5\n"}
+,{"stream_name":"stdout","time":7599.984708769,"data":"\n"}
+,{"stream_name":"stdout","time":7599.984712854,"data":"r4-xlmr-large-lr1e-5-s43_p0 epoch 0: clar_combined=0.3207 clar_mapped=0.2881 clar_head=0.3215 evasion=0.0983\n"}
+,{"stream_name":"stdout","time":7599.984717187,"data":"r4-xlmr-large-lr1e-5-s43_p0 epoch 1: clar_combined=0.5678 clar_mapped=0.5548 clar_head=0.5810 evasion=0.1986\n"}
+,{"stream_name":"stdout","time":7599.984721627,"data":"r4-xlmr-large-lr1e-5-s43_p0 epoch 2: clar_combined=0.6351 clar_mapped=0.6218 clar_head=0.6398 evasion=0.2924\n"}
+,{"stream_name":"stdout","time":7599.984739198,"data":"r4-xlmr-large-lr1e-5-s43_p0 epoch 3: clar_combined=0.6584 clar_mapped=0.6579 clar_head=0.6635 evasion=0.3531\n"}
+,{"stream_name":"stdout","time":7599.984744735,"data":"r4-xlmr-large-lr1e-5-s43_p0 epoch 4: clar_combined=0.6577 clar_mapped=0.6559 clar_head=0.6528 evasion=0.3679\n"}
+,{"stream_name":"stdout","time":7599.984749113,"data":"r4-xlmr-large-lr1e-5-s43_p0 epoch 5: clar_combined=0.6549 clar_mapped=0.6536 clar_head=0.6502 evasion=0.3663\n"}
+,{"stream_name":"stdout","time":7599.984752874,"data":"r4-xlmr-large-lr1e-5-s43_p0 epoch 6: clar_combined=0.6655 clar_mapped=0.6583 clar_head=0.6579 evasion=0.3720\n"}
+,{"stream_name":"stdout","time":7599.98475699,"data":"r4-xlmr-large-lr1e-5-s43_p0 epoch 7: clar_combined=0.6632 clar_mapped=0.6641 clar_head=0.6573 evasion=0.3801\n"}
+,{"stream_name":"stdout","time":7599.984762089,"data":"r4-xlmr-large-lr1e-5-s43_p0 epoch 8: clar_combined=0.6618 clar_mapped=0.6650 clar_head=0.6588 evasion=0.3801\n"}
+,{"stream_name":"stdout","time":7599.984778715,"data":"r4-xlmr-large-lr1e-5-s43_p0 epoch 9: clar_combined=0.6626 clar_mapped=0.6679 clar_head=0.6613 evasion=0.3911\n"}
+,{"stream_name":"stdout","time":7599.984951173,"data":"r4-xlmr-large-lr1e-5-s43_p0: best epoch 9\n"}
+,{"stream_name":"stdout","time":7599.984999592,"data":"\n"}
+,{"stream_name":"stdout","time":7599.985023034,"data":"ensemble of ['r4-robert-large-lr1e-5-s43_p0', 'r4-xlmr-large-lr1e-5-s43_p0']: clar_combined=0.6727 clar_mapped=0.6714 clar_head=0.6754 evasion=0.3978\n"}
+,{"stream_name":"stdout","time":7599.985084707,"data":"clarity method: clar_head\n"}
+,{"stream_name":"stdout","time":7599.985128997,"data":"wrote submission.csv\n"}
+,{"stream_name":"stdout","time":7599.985181152,"data":"{'Clear Reply': 173, 'Ambivalent': 106, 'Clear Non-Reply': 17}\n"}
+,{"stream_name":"stdout","time":7599.985217276,"data":"{'Explicit': 190, 'General': 26, 'Implicit': 26, 'Dodging': 22, 'Declining to answer': 14, 'Deflection': 12, 'Claims ignorance': 5, 'Clarification': 1}\n"}
+,{"stream_name":"stderr","time":7603.165103032,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":7603.165142192,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":7603.555717451,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":7603.555753735,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":7604.498146349,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":7605.952268767,"data":"[NbConvertApp] Writing 289679 bytes to __results__.html\n"}
+]
