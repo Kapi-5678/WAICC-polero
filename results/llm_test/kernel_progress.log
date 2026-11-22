@@ -1,0 +1,52 @@
+ggml-org/Qwen3.6-35B-A3B-GGUF: download done at 2.2 min -> /tmp/models/m0/Qwen3.6-35B-A3B-Q4_K_M.gguf
+server up after 3.8 min, test reply 'OK' in 63 s
+GPU MiB used: ['11929', '11417']
+using ggml-org/Qwen3.6-35B-A3B-GGUF at 6.0 min
+TEST: 296 rows at 6.0 min
+  10/296 rows, 3.6 min, 2.8 rows/min, parsed 10, mean completion tokens 1516, modes {np.str_('think'): np.int64(10)}
+  20/296 rows, 6.9 min, 2.9 rows/min, parsed 20, mean completion tokens 1378, modes {np.str_('think'): np.int64(20)}
+  30/296 rows, 9.0 min, 3.3 rows/min, parsed 30, mean completion tokens 1373, modes {np.str_('think'): np.int64(30)}
+  40/296 rows, 11.6 min, 3.5 rows/min, parsed 40, mean completion tokens 1370, modes {np.str_('think'): np.int64(40)}
+  50/296 rows, 13.6 min, 3.7 rows/min, parsed 50, mean completion tokens 1369, modes {np.str_('think'): np.int64(50)}
+  60/296 rows, 16.7 min, 3.6 rows/min, parsed 60, mean completion tokens 1388, modes {np.str_('think'): np.int64(60)}
+  70/296 rows, 19.5 min, 3.6 rows/min, parsed 70, mean completion tokens 1404, modes {np.str_('think'): np.int64(70)}
+  80/296 rows, 21.7 min, 3.7 rows/min, parsed 80, mean completion tokens 1418, modes {np.str_('think'): np.int64(80)}
+  90/296 rows, 24.4 min, 3.7 rows/min, parsed 90, mean completion tokens 1401, modes {np.str_('think'): np.int64(90)}
+  100/296 rows, 26.7 min, 3.8 rows/min, parsed 100, mean completion tokens 1395, modes {np.str_('think'): np.int64(100)}
+  110/296 rows, 29.3 min, 3.8 rows/min, parsed 110, mean completion tokens 1401, modes {np.str_('think'): np.int64(110)}
+  120/296 rows, 31.3 min, 3.8 rows/min, parsed 120, mean completion tokens 1408, modes {np.str_('think'): np.int64(120)}
+  130/296 rows, 34.2 min, 3.8 rows/min, parsed 130, mean completion tokens 1411, modes {np.str_('think'): np.int64(130)}
+  140/296 rows, 36.8 min, 3.8 rows/min, parsed 140, mean completion tokens 1414, modes {np.str_('think'): np.int64(140)}
+  150/296 rows, 39.7 min, 3.8 rows/min, parsed 150, mean completion tokens 1422, modes {np.str_('think'): np.int64(150)}
+  160/296 rows, 42.1 min, 3.8 rows/min, parsed 160, mean completion tokens 1429, modes {np.str_('think'): np.int64(160)}
+  170/296 rows, 44.4 min, 3.8 rows/min, parsed 170, mean completion tokens 1425, modes {np.str_('think'): np.int64(170)}
+  180/296 rows, 46.8 min, 3.8 rows/min, parsed 180, mean completion tokens 1423, modes {np.str_('think'): np.int64(180)}
+  190/296 rows, 49.7 min, 3.8 rows/min, parsed 190, mean completion tokens 1427, modes {np.str_('think'): np.int64(190)}
+  200/296 rows, 51.9 min, 3.9 rows/min, parsed 200, mean completion tokens 1425, modes {np.str_('think'): np.int64(200)}
+  210/296 rows, 54.7 min, 3.8 rows/min, parsed 210, mean completion tokens 1425, modes {np.str_('think'): np.int64(210)}
+  220/296 rows, 57.2 min, 3.8 rows/min, parsed 220, mean completion tokens 1425, modes {np.str_('think'): np.int64(220)}
+  230/296 rows, 59.5 min, 3.9 rows/min, parsed 230, mean completion tokens 1422, modes {np.str_('think'): np.int64(230)}
+  240/296 rows, 62.2 min, 3.9 rows/min, parsed 240, mean completion tokens 1424, modes {np.str_('think'): np.int64(240)}
+  250/296 rows, 65.1 min, 3.8 rows/min, parsed 250, mean completion tokens 1422, modes {np.str_('think'): np.int64(250)}
+  260/296 rows, 67.3 min, 3.9 rows/min, parsed 260, mean completion tokens 1426, modes {np.str_('think'): np.int64(260)}
+  270/296 rows, 69.6 min, 3.9 rows/min, parsed 270, mean completion tokens 1427, modes {np.str_('think'): np.int64(270)}
+  280/296 rows, 72.0 min, 3.9 rows/min, parsed 280, mean completion tokens 1425, modes {np.str_('think'): np.int64(280)}
+  290/296 rows, 74.9 min, 3.9 rows/min, parsed 290, mean completion tokens 1429, modes {np.str_('think'): np.int64(290)}
+  296/296 rows, 75.3 min, 3.9 rows/min, parsed 296, mean completion tokens 1431, modes {np.str_('think'): np.int64(296)}
+test: 296 rows at 81.3 min, parsed 296, label counts {'Explicit': 116, 'Deflection': 73, 'General': 40, 'Dodging': 30, 'Implicit': 11, 'Claims ignorance': 10, 'Declining to answer': 10, 'Partial/half-answer': 4, 'Clarification': 2}
+SANITY: 120 fold-0 train rows, thinking on, until minute 106
+  10/120 rows, 3.3 min, 3.0 rows/min, parsed 10, mean completion tokens 1388, modes {np.str_('think'): np.int64(10)}
+  20/120 rows, 6.6 min, 3.1 rows/min, parsed 20, mean completion tokens 1412, modes {np.str_('think'): np.int64(20)}
+  30/120 rows, 9.1 min, 3.3 rows/min, parsed 30, mean completion tokens 1397, modes {np.str_('think'): np.int64(30)}
+  40/120 rows, 11.3 min, 3.6 rows/min, parsed 40, mean completion tokens 1400, modes {np.str_('think'): np.int64(40)}
+  50/120 rows, 14.3 min, 3.5 rows/min, parsed 50, mean completion tokens 1429, modes {np.str_('think'): np.int64(50)}
+  60/120 rows, 16.3 min, 3.7 rows/min, parsed 60, mean completion tokens 1441, modes {np.str_('think'): np.int64(60)}
+  70/120 rows, 19.4 min, 3.6 rows/min, parsed 70, mean completion tokens 1449, modes {np.str_('think'): np.int64(70)}
+  80/120 rows, 22.0 min, 3.6 rows/min, parsed 80, mean completion tokens 1442, modes {np.str_('think'): np.int64(80)}
+  90/120 rows, 24.1 min, 3.7 rows/min, parsed 90, mean completion tokens 1448, modes {np.str_('think'): np.int64(90)}
+  100/120 rows, 26.1 min, 3.8 rows/min, parsed 100, mean completion tokens 1451, modes {np.str_('think'): np.int64(100)}
+sanity: 102 rows done, parse failures 0.0%
+sanity evasion macro-F1 (parsed rows, single-annotator train labels): 0.3322
+sanity mapped clarity macro-F1: 0.6836
+          macro avg       0.40      0.35      0.33       102
+done in 107.5 min
